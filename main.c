@@ -19,7 +19,6 @@ typedef struct Chip8
 
 int main() {
     Chip8* a = malloc(sizeof(Chip8));
-    Chip8 a = {.pc = 10};
     printf("Hello, World!\n");
     return 0;
 }
