@@ -19,6 +19,12 @@ typedef struct Chip8
 
 int main() {
     Chip8* a = malloc(sizeof(Chip8));
+    FILE* f = fopen("/Users/mnunes/repos/chip8/pong.ch8", "r");
+    if (!f) {
+        return 1;
+    }
+    fread(&a->memory[0x200], sizeof(0xfff - 0x200), 1, f);
+    fclose(f);
     printf("Hello, World!\n");
     return 0;
 }
