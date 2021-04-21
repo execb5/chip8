@@ -17,4 +17,3 @@ int main(int argc, char** argv) {
 	/*return rand() % 256;*/
 	return 0;
 }
-
