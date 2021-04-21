@@ -102,3 +102,6 @@ main
 
 # Chip8 dumps
 *.hex
+
+# All CLion stuff
+.idea
