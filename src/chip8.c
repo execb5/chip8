@@ -54,7 +54,7 @@ void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
 	if (!f) {
 		exit(1);
 	}
-	fwrite(chip->memory, sizeof(uint8_t), 4096, f);
+	fwrite(chip->memory, sizeof(uint8_t), CHIP8_MEMORY_SIZE, f);
 	fclose(f);
 }
 
@@ -64,6 +64,11 @@ void op_00e0(Chip8* chip) {
 
 void op_00ee(Chip8* chip) {
 	chip->pc = chip->stack[--chip->sp];
+}
+
+void op_1nnn(Chip8* chip) {
+	uint16_t address = chip->opcode & 0x0FFFu;
+	chip->pc = address;
 }
 
 void destroy(Chip8* chip) {

@@ -3,9 +3,6 @@
 
 #include <stdint.h>
 
-extern int screen_width;
-extern int screen_height;
-
 #define CHIP8_MEMORY_SIZE 4096
 #define CHIP8_SCREEN_WIDTH 64
 #define CHIP8_SCREEN_HEIGHT 32
@@ -32,6 +29,7 @@ Chip8* create(char* rom_name);
 void dump_memory_to_file(Chip8* chip, char* memory_file_name);
 void op_00e0(Chip8* chip);
 void op_00ee(Chip8* chip);
+void op_1nnn(Chip8* chip);
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */

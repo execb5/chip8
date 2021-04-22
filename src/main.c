@@ -13,6 +13,7 @@ int main(int argc, char** argv) {
 	dump_memory_to_file(a, argv[2]);
 	op_00e0(a);
 	op_00ee(a);
+	op_1nnn(a);
 	destroy(a);
 	return 0;
 }
