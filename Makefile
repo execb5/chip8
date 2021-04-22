@@ -4,7 +4,7 @@ ODIR = ./obj
 
 CC = gcc
 CFLAGS = -Wall -g -I$(IDIR)
-LIB_FLAGS = -lncurses -lcmocka
+LIB_FLAGS = -lncurses
 TEST_FLAGS = -lcmocka
 
 _DEPS = chip8.h
