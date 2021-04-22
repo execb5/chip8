@@ -34,7 +34,7 @@ static int rand_number() {
 }
 
 Chip8* start(char* rom_name) {
-	Chip8 *a = malloc(sizeof(Chip8));
+	Chip8 *a = calloc(1, sizeof(Chip8));
 	FILE *f = fopen(rom_name, "r");
 	if (!f) {
 		exit(1);
@@ -54,4 +54,8 @@ void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
 
 void op_00e0(Chip8* chip) {
 	memset(chip->video, 0, CHIP8_PIXEL_COUNT);
+}
+
+void op_00ee(Chip8* chip) {
+	chip->pc = chip->stack[--chip->sp];
 }

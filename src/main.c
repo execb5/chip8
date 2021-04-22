@@ -12,5 +12,6 @@ int main(int argc, char** argv) {
 	Chip8* a = start(argv[1]);
 	dump_memory_to_file(a, argv[2]);
 	op_00e0(a);
+	op_00ee(a);
 	return 0;
 }
