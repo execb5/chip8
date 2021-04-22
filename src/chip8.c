@@ -67,7 +67,15 @@ void op_00ee(Chip8* chip) {
 }
 
 void op_1nnn(Chip8* chip) {
-	uint16_t address = chip->opcode & 0x0FFFu;
+	uint16_t address = chip->opcode & 0x0fffu;
+	chip->pc = address;
+}
+
+void op_2nnn(Chip8* chip) {
+	uint16_t address = chip->opcode & 0x0fffu;
+
+	chip->stack[chip->sp] = chip->pc;
+	chip->sp++;
 	chip->pc = address;
 }
 

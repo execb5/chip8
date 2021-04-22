@@ -30,6 +30,7 @@ void dump_memory_to_file(Chip8* chip, char* memory_file_name);
 void op_00e0(Chip8* chip);
 void op_00ee(Chip8* chip);
 void op_1nnn(Chip8* chip);
+void op_2nnn(Chip8* chip);
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */
