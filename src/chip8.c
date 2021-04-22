@@ -34,11 +34,11 @@ static int rand_number() {
 }
 
 Chip8* create(char* rom_name) {
-	Chip8 *a = calloc(1, sizeof(Chip8));
+	Chip8* a = calloc(1, sizeof(Chip8));
 	if (!a) {
 		exit(2);
 	}
-	FILE *f = fopen(rom_name, "r");
+	FILE* f = fopen(rom_name, "r");
 	if (!f) {
 		exit(1);
 	}
@@ -50,7 +50,7 @@ Chip8* create(char* rom_name) {
 }
 
 void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
-	FILE *f = fopen(memory_file_name, "wb");
+	FILE* f = fopen(memory_file_name, "wb");
 	if (!f) {
 		exit(1);
 	}
