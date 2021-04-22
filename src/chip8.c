@@ -33,8 +33,11 @@ static int rand_number() {
 	return rand() % 256;
 }
 
-Chip8* start(char* rom_name) {
+Chip8* create(char* rom_name) {
 	Chip8 *a = calloc(1, sizeof(Chip8));
+	if (!a) {
+		exit(2);
+	}
 	FILE *f = fopen(rom_name, "r");
 	if (!f) {
 		exit(1);
@@ -48,6 +51,9 @@ Chip8* start(char* rom_name) {
 
 void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
 	FILE *f = fopen(memory_file_name, "wb");
+	if (!f) {
+		exit(1);
+	}
 	fwrite(chip->memory, sizeof(uint8_t), 4096, f);
 	fclose(f);
 }
@@ -58,4 +64,8 @@ void op_00e0(Chip8* chip) {
 
 void op_00ee(Chip8* chip) {
 	chip->pc = chip->stack[--chip->sp];
+}
+
+void destroy(Chip8* chip) {
+	free(chip);
 }

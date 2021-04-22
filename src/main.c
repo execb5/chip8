@@ -9,9 +9,10 @@ int main(int argc, char** argv) {
 		printf("Expected %d, but got %d\n", NUMBER_OF_ARGUMENTS, argc - 1);
 		return 1;
 	}
-	Chip8* a = start(argv[1]);
+	Chip8* a = create(argv[1]);
 	dump_memory_to_file(a, argv[2]);
 	op_00e0(a);
 	op_00ee(a);
+	destroy(a);
 	return 0;
 }
