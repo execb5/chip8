@@ -1,6 +1,7 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "chip8.h"
 
 static uint16_t start_address = 0x0200;
@@ -28,6 +29,10 @@ uint8_t font_set[80] =
 	0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
+static int rand_number() {
+	return rand() % 256;
+}
+
 Chip8* start(char* rom_name) {
 	Chip8 *a = malloc(sizeof(Chip8));
 	FILE *f = fopen(rom_name, "r");
@@ -37,6 +42,7 @@ Chip8* start(char* rom_name) {
 	fread(&a->memory[start_address], end_address - start_address, 1, f);
 	fclose(f);
 	memcpy(&a->memory[font_set_start_address], font_set, FONT_SET_SIZE);
+	srand(time(NULL));
 	return a;
 }
 
@@ -46,3 +52,6 @@ void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
 	fclose(f);
 }
 
+void op_00e0(Chip8* chip) {
+	memset(chip->video, 0, CHIP8_PIXEL_COUNT);
+}

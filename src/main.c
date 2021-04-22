@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "chip8.h"
 
 #define NUMBER_OF_ARGUMENTS 2
@@ -13,7 +11,6 @@ int main(int argc, char** argv) {
 	}
 	Chip8* a = start(argv[1]);
 	dump_memory_to_file(a, argv[2]);
-	srand(time(NULL));
-	/*return rand() % 256;*/
+	op_00e0(a);
 	return 0;
 }
