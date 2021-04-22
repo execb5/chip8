@@ -1,0 +1,26 @@
+name: C CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: download cmocka
+      run: curl https://cmocka.org/files/1.1/cmocka-1.1.5.tar.xz --output cmocka-1.1.5.tar.xz --silent
+    - name: uncompress cmocka
+      run: xz -d cmocka-1.1.5.tar.xz && tar vxf cmocka-1.1.5.tar
+    - name: install cmocka
+      run: (cd cmocka-1.1.5 && mkdir build && cd $_ && cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install)
+    - name: make
+      run: make
+    - name: make run_test
+      run: export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH} && make run_test
+
