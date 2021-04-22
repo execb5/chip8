@@ -99,6 +99,7 @@ fabric.properties
 *.out
 *.app
 main
+test
 
 # Chip8 dumps
 *.hex
