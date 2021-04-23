@@ -54,12 +54,38 @@ static void test_op_2nnn(void** state) {
 	assert_int_equal(a.pc, address);
 }
 
+static void test_op_3xkk(void** state) {
+	Chip8 a;
+	a.opcode = 0x0202;
+	a.registers[0x02] = 0x02;
+	uint16_t pc = 0x0050u;
+	a.pc = pc;
+
+	op_3xkk(&a);
+
+	assert_int_equal(a.pc, pc + 2);
+}
+
+static void test_op_4xkk(void** state) {
+	Chip8 a;
+	a.opcode = 0x0302;
+	a.registers[0x03] = 0x0a;
+	uint16_t pc = 0x0010u;
+	a.pc = pc;
+
+	op_4xkk(&a);
+
+	assert_int_equal(a.pc, pc + 2);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0),
 		cmocka_unit_test(test_op_00ee),
 		cmocka_unit_test(test_op_1nnn),
 		cmocka_unit_test(test_op_2nnn),
+		cmocka_unit_test(test_op_3xkk),
+		cmocka_unit_test(test_op_4xkk),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

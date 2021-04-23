@@ -15,6 +15,8 @@ int main(int argc, char** argv) {
 	op_00ee(a);
 	op_1nnn(a);
 	op_2nnn(a);
+	op_3xkk(a);
+	op_4xkk(a);
 	destroy(a);
 	return 0;
 }

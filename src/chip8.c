@@ -29,10 +29,6 @@ uint8_t font_set[80] =
 		0xf0, 0x80, 0xf0, 0x80, 0x80  // F
 	};
 
-static int rand_number() {
-	return rand() % 256;
-}
-
 Chip8* create(char* rom_name) {
 	Chip8* a = calloc(1, sizeof(Chip8));
 	if (!a) {
@@ -77,6 +73,28 @@ void op_2nnn(Chip8* chip) {
 	chip->stack[chip->sp] = chip->pc;
 	chip->sp++;
 	chip->pc = address;
+}
+
+void op_3xkk(Chip8* chip) {
+	chip->opcode = 0x0202;
+	uint16_t pc = 0x0050u;
+	chip->pc = pc;
+
+	uint8_t vx = (chip->opcode & 0xff00u) >> 8u;
+	uint8_t kk = (chip->opcode & 0x00ffu);
+
+	if (chip->registers[vx] == kk) {
+		chip->pc += 2;
+	}
+}
+
+void op_4xkk(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0xff00u) >> 8u;
+	uint8_t kk = (chip->opcode & 0x00ffu);
+
+	if (chip->registers[vx] != kk) {
+		chip->pc += 2;
+	}
 }
 
 void destroy(Chip8* chip) {

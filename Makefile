@@ -45,4 +45,4 @@ run_test: test
 clean:
 	rm -f $(ODIR)/*.o
 	rm -f main
-
+	rm -f test
