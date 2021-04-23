@@ -36,3 +36,4 @@ void op_4xkk(Chip8* chip);
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */
+

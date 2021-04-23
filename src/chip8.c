@@ -76,11 +76,7 @@ void op_2nnn(Chip8* chip) {
 }
 
 void op_3xkk(Chip8* chip) {
-	chip->opcode = 0x0202;
-	uint16_t pc = 0x0050u;
-	chip->pc = pc;
-
-	uint8_t vx = (chip->opcode & 0xff00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 	uint8_t kk = (chip->opcode & 0x00ffu);
 
 	if (chip->registers[vx] == kk) {
@@ -89,7 +85,7 @@ void op_3xkk(Chip8* chip) {
 }
 
 void op_4xkk(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0xff00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 	uint8_t kk = (chip->opcode & 0x00ffu);
 
 	if (chip->registers[vx] != kk) {
@@ -100,3 +96,4 @@ void op_4xkk(Chip8* chip) {
 void destroy(Chip8* chip) {
 	free(chip);
 }
+

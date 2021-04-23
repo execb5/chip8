@@ -20,3 +20,4 @@ int main(int argc, char** argv) {
 	destroy(a);
 	return 0;
 }
+
