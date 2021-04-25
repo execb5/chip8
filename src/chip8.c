@@ -8,7 +8,7 @@ static uint16_t start_address = 0x0200;
 static uint16_t end_address = 0x0fff;
 static uint16_t font_set_start_address = 0x0050;
 
-static uint8_t FONT_SET_SIZE = 80;
+static uint8_t font_set_size = 80;
 uint8_t font_set[80] =
 	{
 		0xf0, 0x90, 0x90, 0x90, 0xf0, // 0
@@ -40,7 +40,7 @@ Chip8* create(char* rom_name) {
 	}
 	fread(&a->memory[start_address], end_address - start_address, 1, f);
 	fclose(f);
-	memcpy(&a->memory[font_set_start_address], font_set, FONT_SET_SIZE);
+	memcpy(&a->memory[font_set_start_address], font_set, font_set_size);
 	srand(time(NULL));
 	return a;
 }
