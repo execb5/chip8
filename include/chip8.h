@@ -41,6 +41,8 @@ void op_3xkk(Chip8* chip);
 void op_4xkk(Chip8* chip);
 // SE Vx, Vy
 void op_5xy0(Chip8* chip);
+// LD Vx, byte
+void op_6xkk(Chip8* chip);
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */

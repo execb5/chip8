@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
 	op_3xkk(a);
 	op_4xkk(a);
 	op_5xy0(a);
+	op_6xkk(a);
 	destroy(a);
 	return 0;
 }
