@@ -116,6 +116,13 @@ void op_7xkk(Chip8* chip) {
 	chip->registers[vx] += kk;
 }
 
+void op_8xy0(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t vy = (chip->opcode & 0x00f0u) >> 4u;
+
+	chip->registers[vx] = chip->registers[vy];
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
