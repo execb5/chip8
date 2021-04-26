@@ -223,6 +223,19 @@ static void test_op_6xkk_should_save_kk_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], kk);
 }
 
+static void test_op_7xkk_should_add_kk_to_register_vx(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t kk = 0x31;
+	uint8_t previous_value = 0x30;
+	a.opcode = (vx << 8u) + kk;
+	a.registers[vx] = previous_value;
+
+	op_7xkk(&a);
+
+	assert_int_equal(a.registers[vx], previous_value + kk);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -243,6 +256,7 @@ int main(void) {
 		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y),
 		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x),
 		cmocka_unit_test(test_op_6xkk_should_save_kk_to_register_vx),
+		cmocka_unit_test(test_op_7xkk_should_add_kk_to_register_vx),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
