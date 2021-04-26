@@ -159,6 +159,58 @@ static void test_op_4xkk_should_increase_pc_by_two_if_leftmost_byte_is_different
 	assert_int_equal(a.pc, pc + 2);
 }
 
+static void test_op_5xy0_should_increment_pc_by_two_if_vx_and_vy_are_equal(void** state) {
+	Chip8 a;
+	a.opcode = 0x0230;
+	a.registers[0x02] = 0x02;
+	a.registers[0x03] = 0x02;
+	uint16_t pc = 0x0050u;
+	a.pc = pc;
+
+	op_5xy0(&a);
+
+	assert_int_equal(a.pc, pc + 2);
+}
+
+static void test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different(void** state) {
+	Chip8 a;
+	a.opcode = 0x0230;
+	a.registers[0x02] = 0x02;
+	a.registers[0x03] = 0x03;
+	uint16_t pc = 0x0050u;
+	a.pc = pc;
+
+	op_5xy0(&a);
+
+	assert_int_equal(a.pc, pc);
+}
+
+static void test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y(void** state) {
+	Chip8 a;
+	a.opcode = 0x1230;
+	a.registers[0x02] = 0x02;
+	a.registers[0x03] = 0x02;
+	uint16_t pc = 0x0050u;
+	a.pc = pc;
+
+	op_5xy0(&a);
+
+	assert_int_equal(a.pc, pc + 2);
+}
+
+static void test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x(void** state) {
+	Chip8 a;
+	a.opcode = 0x0231;
+	a.registers[0x02] = 0x02;
+	a.registers[0x03] = 0x02;
+	uint16_t pc = 0x0050u;
+	a.pc = pc;
+
+	op_5xy0(&a);
+
+	assert_int_equal(a.pc, pc + 2);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -174,8 +226,11 @@ int main(void) {
 		cmocka_unit_test(test_op_4xkk_should_increment_pc_by_two_if_vx_and_kk_are_different),
 		cmocka_unit_test(test_op_4xkk_should_maintain_pc_if_vx_and_kk_are_equal),
 		cmocka_unit_test(test_op_4xkk_should_increase_pc_by_two_if_leftmost_byte_is_different_than_k),
+		cmocka_unit_test(test_op_5xy0_should_increment_pc_by_two_if_vx_and_vy_are_equal),
+		cmocka_unit_test(test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different),
+		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y),
+		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
 }
-
