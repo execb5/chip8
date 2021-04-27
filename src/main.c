@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
 	op_8xy1(a);
 	op_8xy2(a);
 	op_8xy3(a);
+	op_8xy4(a);
 	destroy(a);
 	return 0;
 }

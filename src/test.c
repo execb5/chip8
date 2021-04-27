@@ -211,7 +211,7 @@ static void test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_differen
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_6xkk_should_save_kk_to_register_vx(void** state) {
+static void test_op_6xkk_should_save_kk_in_register_vx(void** state) {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t kk = 0x31;
@@ -236,7 +236,7 @@ static void test_op_7xkk_should_add_kk_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], previous_value + kk);
 }
 
-static void test_op_8xy0_should_set_register_vy_to_register_vx(void** state) {
+static void test_op_8xy0_should_save_vy_in_vx(void** state) {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -250,7 +250,7 @@ static void test_op_8xy0_should_set_register_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], vy_value);
 }
 
-static void test_op_8xy1_should_set_register_vx_or_vy_to_register_vx(void** state) {
+static void test_op_8xy1_should_set_vx_or_vy_to_register_vx(void** state) {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -265,7 +265,7 @@ static void test_op_8xy1_should_set_register_vx_or_vy_to_register_vx(void** stat
 	assert_int_equal(a.registers[vx], vx_value | vy_value);
 }
 
-static void test_op_8xy2_should_set_register_vx_and_vy_to_register_vx(void** state) {
+static void test_op_8xy2_should_set_vx_and_vy_to_register_vx(void** state) {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -280,7 +280,7 @@ static void test_op_8xy2_should_set_register_vx_and_vy_to_register_vx(void** sta
 	assert_int_equal(a.registers[vx], vx_value & vy_value);
 }
 
-static void test_op_8xy3_should_set_register_vx_xor_vy_to_register_vx(void** state) {
+static void test_op_8xy3_should_set_vx_xor_vy_to_register_vx(void** state) {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -293,6 +293,38 @@ static void test_op_8xy3_should_set_register_vx_xor_vy_to_register_vx(void** sta
 	op_8xy3(&a);
 
 	assert_int_equal(a.registers[vx], vx_value ^ vy_value);
+}
+
+static void test_op_8xy4_should_set_vx_plus_vy_to_register_vx(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0xf0;
+	uint8_t vy_value = 0x0f;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy4(&a);
+
+	assert_int_equal(a.registers[vx], vx_value + vy_value);
+}
+
+static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0xff;
+	uint8_t vy_value = 0x01;
+	uint16_t sum = vx_value + vy_value;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy4(&a);
+
+	assert_int_equal(a.registers[vx], sum & 0xffu);
+	assert_int_equal(a.registers[0xf], 1);
 }
 
 int main(void) {
@@ -314,12 +346,14 @@ int main(void) {
 		cmocka_unit_test(test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different),
 		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y),
 		cmocka_unit_test(test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x),
-		cmocka_unit_test(test_op_6xkk_should_save_kk_to_register_vx),
+		cmocka_unit_test(test_op_6xkk_should_save_kk_in_register_vx),
 		cmocka_unit_test(test_op_7xkk_should_add_kk_to_register_vx),
-		cmocka_unit_test(test_op_8xy0_should_set_register_vy_to_register_vx),
-		cmocka_unit_test(test_op_8xy1_should_set_register_vx_or_vy_to_register_vx),
-		cmocka_unit_test(test_op_8xy2_should_set_register_vx_and_vy_to_register_vx),
-		cmocka_unit_test(test_op_8xy3_should_set_register_vx_xor_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy0_should_save_vy_in_vx),
+		cmocka_unit_test(test_op_8xy1_should_set_vx_or_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy2_should_set_vx_and_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy3_should_set_vx_xor_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy4_should_set_vx_plus_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
