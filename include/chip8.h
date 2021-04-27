@@ -39,6 +39,7 @@ void op_7xkk(Chip8* chip); // ADD Vx, byte
 void op_8xy0(Chip8* chip); // LD Vx, Vy
 void op_8xy1(Chip8* chip); // OR Vx, Vy
 void op_8xy2(Chip8* chip); // AND Vx, Vy
+void op_8xy3(Chip8* chip); // XOR Vx, Vy
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */

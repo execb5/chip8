@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
 	op_8xy0(a);
 	op_8xy1(a);
 	op_8xy2(a);
+	op_8xy3(a);
 	destroy(a);
 	return 0;
 }

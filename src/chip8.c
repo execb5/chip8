@@ -137,6 +137,13 @@ void op_8xy2(Chip8* chip) {
 	chip->registers[vx] &= chip->registers[vy];
 }
 
+void op_8xy3(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t vy = (chip->opcode & 0x00f0u) >> 4u;
+
+	chip->registers[vx] ^= chip->registers[vy];
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }

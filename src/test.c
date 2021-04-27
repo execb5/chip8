@@ -280,6 +280,21 @@ static void test_op_8xy2_should_set_register_vx_and_vy_to_register_vx(void** sta
 	assert_int_equal(a.registers[vx], vx_value & vy_value);
 }
 
+static void test_op_8xy3_should_set_register_vx_xor_vy_to_register_vx(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0xf0;
+	uint8_t vy_value = 0x0f;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy3(&a);
+
+	assert_int_equal(a.registers[vx], vx_value ^ vy_value);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -304,6 +319,7 @@ int main(void) {
 		cmocka_unit_test(test_op_8xy0_should_set_register_vy_to_register_vx),
 		cmocka_unit_test(test_op_8xy1_should_set_register_vx_or_vy_to_register_vx),
 		cmocka_unit_test(test_op_8xy2_should_set_register_vx_and_vy_to_register_vx),
+		cmocka_unit_test(test_op_8xy3_should_set_register_vx_xor_vy_to_register_vx),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
