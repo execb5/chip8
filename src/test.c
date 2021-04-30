@@ -377,6 +377,32 @@ static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy(void** state) {
 	assert_int_equal(a.registers[0xf], 0);
 }
 
+static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x0b;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+
+	uint8_t least_significant_bit = (vx_value & 0x1u);
+
+	op_8xy6(&a);
+
+	assert_int_equal(a.registers[0xf], least_significant_bit);
+}
+
+static void test_op_8xy6_should_divide_vx_by_2(void** state) {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x0b;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+
+	op_8xy6(&a);
+
+	assert_int_equal(a.registers[vx], (vx_value >> 1));
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -407,6 +433,8 @@ int main(void) {
 		cmocka_unit_test(test_op_8xy5_should_set_vx_minus_vy_to_register_vx),
 		cmocka_unit_test(test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy),
 		cmocka_unit_test(test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy),
+		cmocka_unit_test(test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf),
+		cmocka_unit_test(test_op_8xy6_should_divide_vx_by_2),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

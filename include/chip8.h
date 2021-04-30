@@ -42,6 +42,7 @@ void op_8xy2(Chip8* chip); // AND Vx, Vy
 void op_8xy3(Chip8* chip); // XOR Vx, Vy
 void op_8xy4(Chip8* chip); // ADD Vx, Vy
 void op_8xy5(Chip8* chip); // SUB Vx, Vy
+void op_8xy6(Chip8* chip); // SHR Vx
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */

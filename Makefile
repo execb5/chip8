@@ -34,7 +34,7 @@ main: $(OBJ) $(MAIN)
 test: $(OBJ) $(TEST)
 	$(CC) -o $@ $^ $(CFLAGS) $(TEST_FLAGS)
 
-.PHONY: clean run
+.PHONY: clean run run_test
 
 run: main
 	./main ${ARGS}
@@ -46,4 +46,3 @@ clean:
 	rm -f $(ODIR)/*.o
 	rm -f main
 	rm -f test
-
