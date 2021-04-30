@@ -5,7 +5,7 @@
 #include <string.h>
 #include "chip8.h"
 
-static void test_op_00e0_should_fill_memory_with_zeroes(void** state) {
+static void test_op_00e0_should_fill_memory_with_zeroes() {
 	Chip8 a;
 	memset(a.video, 0x01, CHIP8_PIXEL_COUNT);
 
@@ -16,7 +16,7 @@ static void test_op_00e0_should_fill_memory_with_zeroes(void** state) {
 	}
 }
 
-static void test_op_00ee_should_set_the_pc_to_address_on_top_of_stack(void** state) {
+static void test_op_00ee_should_set_the_pc_to_address_on_top_of_stack() {
 	Chip8 a;
 	a.sp = 0x05;
 	int previous_sp_value = a.sp - 1;
@@ -27,7 +27,7 @@ static void test_op_00ee_should_set_the_pc_to_address_on_top_of_stack(void** sta
 	assert_int_equal(a.pc, a.stack[a.sp]);
 }
 
-static void test_op_00ee_should_decrease_sp_by_one(void** state) {
+static void test_op_00ee_should_decrease_sp_by_one() {
 	Chip8 a;
 	a.sp = 0x05;
 	int previous_sp_value = a.sp - 1;
@@ -37,7 +37,7 @@ static void test_op_00ee_should_decrease_sp_by_one(void** state) {
 	assert_int_equal(a.sp, previous_sp_value);
 }
 
-static void test_op_1nnn_should_set_the_pc_to_nnn(void** state) {
+static void test_op_1nnn_should_set_the_pc_to_nnn() {
 	Chip8 a;
 	a.opcode = 0x9006;
 	uint16_t address = a.opcode & 0x0fffu;
@@ -47,7 +47,7 @@ static void test_op_1nnn_should_set_the_pc_to_nnn(void** state) {
 	assert_int_equal(a.pc, address);
 }
 
-static void test_op_2nnn_should_increment_the_sp(void** state) {
+static void test_op_2nnn_should_increment_the_sp() {
 	Chip8 a;
 	uint8_t sp = 0x0au;
 	a.sp = sp;
@@ -60,7 +60,7 @@ static void test_op_2nnn_should_increment_the_sp(void** state) {
 	assert_int_equal(a.sp, sp + 0x01u);
 }
 
-static void test_op_2nnn_should_put_the_current_pc_on_the_top_of_the_stack(void** state) {
+static void test_op_2nnn_should_put_the_current_pc_on_the_top_of_the_stack() {
 	Chip8 a;
 	uint8_t sp = 0x0au;
 	a.sp = sp;
@@ -73,7 +73,7 @@ static void test_op_2nnn_should_put_the_current_pc_on_the_top_of_the_stack(void*
 	assert_int_equal(a.stack[sp], 0x0020);
 }
 
-static void test_op_2nnn_should_set_the_pc_to_nnn(void** state) {
+static void test_op_2nnn_should_set_the_pc_to_nnn() {
 	Chip8 a;
 	uint8_t sp = 0x0au;
 	a.sp = sp;
@@ -87,7 +87,7 @@ static void test_op_2nnn_should_set_the_pc_to_nnn(void** state) {
 	assert_int_equal(a.pc, address);
 }
 
-static void test_op_3xkk_should_increment_pc_by_two_if_vx_and_kk_are_equal(void** state) {
+static void test_op_3xkk_should_increment_pc_by_two_if_vx_and_kk_are_equal() {
 	Chip8 a;
 	a.opcode = 0x0202;
 	a.registers[0x02] = 0x02;
@@ -99,7 +99,7 @@ static void test_op_3xkk_should_increment_pc_by_two_if_vx_and_kk_are_equal(void*
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_3xkk_should_maintain_pc_if_vx_and_kk_are_different(void** state) {
+static void test_op_3xkk_should_maintain_pc_if_vx_and_kk_are_different() {
 	Chip8 a;
 	a.opcode = 0x0302;
 	a.registers[0x03] = 0x03;
@@ -111,7 +111,7 @@ static void test_op_3xkk_should_maintain_pc_if_vx_and_kk_are_different(void** st
 	assert_int_equal(a.pc, pc);
 }
 
-static void test_op_3xkk_should_increase_pc_by_two_if_leftmost_byte_is_different_than_k(void** state) {
+static void test_op_3xkk_should_increase_pc_by_two_if_leftmost_byte_is_different_than_k() {
 	Chip8 a;
 	a.opcode = 0x1202;
 	a.registers[0x02] = 0x02;
@@ -123,7 +123,7 @@ static void test_op_3xkk_should_increase_pc_by_two_if_leftmost_byte_is_different
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_4xkk_should_increment_pc_by_two_if_vx_and_kk_are_different(void** state) {
+static void test_op_4xkk_should_increment_pc_by_two_if_vx_and_kk_are_different() {
 	Chip8 a;
 	a.opcode = 0x0203;
 	a.registers[0x02] = 0x02;
@@ -135,7 +135,7 @@ static void test_op_4xkk_should_increment_pc_by_two_if_vx_and_kk_are_different(v
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_4xkk_should_maintain_pc_if_vx_and_kk_are_equal(void** state) {
+static void test_op_4xkk_should_maintain_pc_if_vx_and_kk_are_equal() {
 	Chip8 a;
 	a.opcode = 0x0303;
 	a.registers[0x03] = 0x03;
@@ -147,7 +147,7 @@ static void test_op_4xkk_should_maintain_pc_if_vx_and_kk_are_equal(void** state)
 	assert_int_equal(a.pc, pc);
 }
 
-static void test_op_4xkk_should_increase_pc_by_two_if_leftmost_byte_is_different_than_k(void** state) {
+static void test_op_4xkk_should_increase_pc_by_two_if_leftmost_byte_is_different_than_k() {
 	Chip8 a;
 	a.opcode = 0x1203;
 	a.registers[0x02] = 0x02;
@@ -159,7 +159,7 @@ static void test_op_4xkk_should_increase_pc_by_two_if_leftmost_byte_is_different
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_5xy0_should_increment_pc_by_two_if_vx_and_vy_are_equal(void** state) {
+static void test_op_5xy0_should_increment_pc_by_two_if_vx_and_vy_are_equal() {
 	Chip8 a;
 	a.opcode = 0x0230;
 	a.registers[0x02] = 0x02;
@@ -172,7 +172,7 @@ static void test_op_5xy0_should_increment_pc_by_two_if_vx_and_vy_are_equal(void*
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different(void** state) {
+static void test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different() {
 	Chip8 a;
 	a.opcode = 0x0230;
 	a.registers[0x02] = 0x02;
@@ -185,7 +185,7 @@ static void test_op_5xy0_should_maintain_pc_if_vx_and_vy_are_different(void** st
 	assert_int_equal(a.pc, pc);
 }
 
-static void test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y(void** state) {
+static void test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different_than_y() {
 	Chip8 a;
 	a.opcode = 0x1230;
 	a.registers[0x02] = 0x02;
@@ -198,7 +198,7 @@ static void test_op_5xy0_should_increase_pc_by_two_if_leftmost_byte_is_different
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x(void** state) {
+static void test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_different_than_x() {
 	Chip8 a;
 	a.opcode = 0x0231;
 	a.registers[0x02] = 0x02;
@@ -211,7 +211,7 @@ static void test_op_5xy0_should_increase_pc_by_two_if_rightmost_byte_is_differen
 	assert_int_equal(a.pc, pc + 2);
 }
 
-static void test_op_6xkk_should_save_kk_in_register_vx(void** state) {
+static void test_op_6xkk_should_save_kk_in_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t kk = 0x31;
@@ -223,7 +223,7 @@ static void test_op_6xkk_should_save_kk_in_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], kk);
 }
 
-static void test_op_7xkk_should_add_kk_to_register_vx(void** state) {
+static void test_op_7xkk_should_add_kk_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t kk = 0x31;
@@ -236,7 +236,7 @@ static void test_op_7xkk_should_add_kk_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], previous_value + kk);
 }
 
-static void test_op_8xy0_should_save_vy_in_vx(void** state) {
+static void test_op_8xy0_should_save_vy_in_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -250,7 +250,7 @@ static void test_op_8xy0_should_save_vy_in_vx(void** state) {
 	assert_int_equal(a.registers[vx], vy_value);
 }
 
-static void test_op_8xy1_should_set_vx_or_vy_to_register_vx(void** state) {
+static void test_op_8xy1_should_set_vx_or_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -265,7 +265,7 @@ static void test_op_8xy1_should_set_vx_or_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], vx_value | vy_value);
 }
 
-static void test_op_8xy2_should_set_vx_and_vy_to_register_vx(void** state) {
+static void test_op_8xy2_should_set_vx_and_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -280,7 +280,7 @@ static void test_op_8xy2_should_set_vx_and_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], vx_value & vy_value);
 }
 
-static void test_op_8xy3_should_set_vx_xor_vy_to_register_vx(void** state) {
+static void test_op_8xy3_should_set_vx_xor_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -295,7 +295,7 @@ static void test_op_8xy3_should_set_vx_xor_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], vx_value ^ vy_value);
 }
 
-static void test_op_8xy4_should_set_vx_plus_vy_to_register_vx(void** state) {
+static void test_op_8xy4_should_set_vx_plus_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -310,7 +310,7 @@ static void test_op_8xy4_should_set_vx_plus_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], vx_value + vy_value);
 }
 
-static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size(void** state) {
+static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -327,7 +327,7 @@ static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size(void*
 	assert_int_equal(a.registers[0xf], 1);
 }
 
-static void test_op_8xy5_should_set_vx_minus_vy_to_register_vx(void** state) {
+static void test_op_8xy5_should_set_vx_minus_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -343,7 +343,7 @@ static void test_op_8xy5_should_set_vx_minus_vy_to_register_vx(void** state) {
 	assert_int_equal(a.registers[vx], sub);
 }
 
-static void test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy(void** state) {
+static void test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -360,7 +360,7 @@ static void test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy(void** state) 
 	assert_int_equal(a.registers[0xf], 1);
 }
 
-static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy(void** state) {
+static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
@@ -377,7 +377,7 @@ static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy(void** state) {
 	assert_int_equal(a.registers[0xf], 0);
 }
 
-static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf(void** state) {
+static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vx_value = 0x0b;
@@ -391,7 +391,7 @@ static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf(void**
 	assert_int_equal(a.registers[0xf], least_significant_bit);
 }
 
-static void test_op_8xy6_should_divide_vx_by_2(void** state) {
+static void test_op_8xy6_should_divide_vx_by_2() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vx_value = 0x0b;
