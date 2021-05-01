@@ -316,7 +316,7 @@ static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size() {
 	uint8_t vy = 0x03;
 	uint8_t vx_value = 0xff;
 	uint8_t vy_value = 0x01;
-	uint16_t sum = vx_value + vy_value;
+	uint8_t sum = vx_value + vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -333,7 +333,7 @@ static void test_op_8xy5_should_set_vx_minus_vy_to_register_vx() {
 	uint8_t vy = 0x03;
 	uint8_t vx_value = 0xff;
 	uint8_t vy_value = 0x01;
-	uint16_t sub = vx_value - vy_value;
+	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -349,7 +349,7 @@ static void test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy() {
 	uint8_t vy = 0x03;
 	uint8_t vx_value = 0xff;
 	uint8_t vy_value = 0x01;
-	uint16_t sub = vx_value - vy_value;
+	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -366,7 +366,7 @@ static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy() {
 	uint8_t vy = 0x03;
 	uint8_t vx_value = 0x01;
 	uint8_t vy_value = 0xff;
-	uint16_t sub = vx_value - vy_value;
+	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -403,6 +403,52 @@ static void test_op_8xy6_should_divide_vx_by_2() {
 	assert_int_equal(a.registers[vx], (vx_value >> 1));
 }
 
+static void test_op_8xy7_should_set_vx_to_vy_minus_vx() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0xff;
+	uint8_t vy_value = 0x01;
+	uint8_t sub = vy_value - vx_value;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy7(&a);
+
+	assert_int_equal(a.registers[vx], sub);
+}
+
+static void test_op_8xy7_should_set_vf_to_1_if_vy_greater_than_vx() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0x01;
+	uint8_t vy_value = 0xff;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy7(&a);
+
+	assert_int_equal(a.registers[0xf], 1);
+}
+
+static void test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0xff;
+	uint8_t vy_value = 0x01;
+	a.registers[vy] = vy_value;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u) + (vy << 4u);
+
+	op_8xy7(&a);
+
+	assert_int_equal(a.registers[0xf], 0);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -435,6 +481,9 @@ int main(void) {
 		cmocka_unit_test(test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy),
 		cmocka_unit_test(test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf),
 		cmocka_unit_test(test_op_8xy6_should_divide_vx_by_2),
+		cmocka_unit_test(test_op_8xy7_should_set_vx_to_vy_minus_vx),
+		cmocka_unit_test(test_op_8xy7_should_set_vf_to_1_if_vy_greater_than_vx),
+		cmocka_unit_test(test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

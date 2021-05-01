@@ -180,6 +180,19 @@ void op_8xy6(Chip8* chip) {
 	chip->registers[vx] >>= 1;
 }
 
+void op_8xy7(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t vy = (chip->opcode & 0x00f0u) >> 4u;
+
+	if (chip->registers[vy] > chip->registers[vx]) {
+		chip->registers[0xf] = 1;
+	} else {
+		chip->registers[0xf] = 0;
+	}
+
+	chip->registers[vx] = chip->registers[vy] - chip->registers[vx];
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
