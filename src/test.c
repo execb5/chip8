@@ -449,6 +449,42 @@ static void test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx() {
 	assert_int_equal(a.registers[0xf], 0);
 }
 
+static void test_op_8xye_should_multiply_vx_by_two() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x04;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+
+	op_8xye(&a);
+
+	assert_int_equal(a.registers[vx], (vx_value << 1));
+}
+
+static void test_op_8xye_should_set_vf_to_1_if_most_significant_bit_is_1() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x82;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+
+	op_8xye(&a);
+
+	assert_int_equal(a.registers[0xf], 1);
+}
+
+static void test_op_8xye_should_set_vf_to_0_if_most_significant_bit_is_0() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x52;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+
+	op_8xye(&a);
+
+	assert_int_equal(a.registers[0xf], 0);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -484,6 +520,9 @@ int main(void) {
 		cmocka_unit_test(test_op_8xy7_should_set_vx_to_vy_minus_vx),
 		cmocka_unit_test(test_op_8xy7_should_set_vf_to_1_if_vy_greater_than_vx),
 		cmocka_unit_test(test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx),
+		cmocka_unit_test(test_op_8xye_should_multiply_vx_by_two),
+		cmocka_unit_test(test_op_8xye_should_set_vf_to_1_if_most_significant_bit_is_1),
+		cmocka_unit_test(test_op_8xye_should_set_vf_to_0_if_most_significant_bit_is_0),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
