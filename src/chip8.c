@@ -196,10 +196,8 @@ void op_8xy7(Chip8* chip) {
 void op_8xye(Chip8* chip) {
 	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
-	uint8_t bepis0 = chip->registers[vx];
-	uint8_t bepis = (bepis0 & 0x80u);
-	uint8_t bepis2 = bepis >> 7u;
-	chip->registers[0xf] = bepis2;
+	uint8_t most_significant_bit_of_vx = chip->registers[vx] >> 7u;
+	chip->registers[0xf] = most_significant_bit_of_vx;
 
 	chip->registers[vx] <<= 1;
 }
