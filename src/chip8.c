@@ -201,6 +201,15 @@ void op_8xye(Chip8* chip) {
 	chip->registers[vx] <<= 1;
 }
 
+void op_9xy0(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t vy = (chip->opcode & 0x00f0u) >> 4u;
+
+	if (chip->registers[vx] != chip->registers[vy]) {
+		chip->pc += 2;
+	}
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
