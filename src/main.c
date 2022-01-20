@@ -31,6 +31,7 @@ int main(int argc, char** argv) {
 	op_8xye(a);
 	op_9xy0(a);
 	op_annn(a);
+	op_bnnn(a);
 	destroy(a);
 	return 0;
 }

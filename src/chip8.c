@@ -214,6 +214,10 @@ void op_annn(Chip8* chip) {
 	chip->index = chip->opcode & 0x0fffu;
 }
 
+void op_bnnn(Chip8* chip) {
+	chip->pc = chip->registers[0] + chip->opcode & 0x0fffu;
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
