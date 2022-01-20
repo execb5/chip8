@@ -536,6 +536,32 @@ static void test_op_bnnn_should_set_pc_to_nnn_plus_v0() {
 	assert_int_equal(a.pc, 0x0173);
 }
 
+static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_255() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a.registers[vx] = vx_value;
+	uint8_t kk = 0xFF;
+	a.opcode = (vx << 8u) + kk;
+
+	op_cxkk(&a);
+
+	assert_in_range(a.registers[vx], 0, 255);
+}
+
+static void test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a.registers[vx] = vx_value;
+	uint8_t kk = 0x00;
+	a.opcode = (vx << 8u) + kk;
+
+	op_cxkk(&a);
+
+	assert_int_equal(a.registers[vx], 0);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -578,6 +604,8 @@ int main(void) {
 		cmocka_unit_test(test_op_9xy0_should_maintain_pc_if_vx_is_equal_to_vy),
 		cmocka_unit_test(test_op_annn_should_set_nnn_to_index),
 		cmocka_unit_test(test_op_bnnn_should_set_pc_to_nnn_plus_v0),
+		cmocka_unit_test(test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_255),
+		cmocka_unit_test(test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

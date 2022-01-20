@@ -216,6 +216,18 @@ void op_bnnn(Chip8* chip) {
 	chip->pc = chip->registers[0] + chip->opcode & 0x0fffu;
 }
 
+void op_cxkk(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t byte = chip->opcode & 0x00ffu;
+
+	uint8_t random_byte;
+	FILE* dev_random = fopen("/dev/random", "r");
+	fread(&random_byte, sizeof(uint8_t), 1, dev_random);
+	fclose(dev_random);
+
+	chip->registers[vx] = random_byte & byte;
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
