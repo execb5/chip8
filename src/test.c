@@ -19,7 +19,7 @@ static void test_op_00e0_should_fill_memory_with_zeroes() {
 static void test_op_00ee_should_set_the_pc_to_address_on_top_of_stack() {
 	Chip8 a;
 	a.sp = 0x05;
-	int previous_sp_value = a.sp - 1;
+	uint8_t previous_sp_value = a.sp - 1;
 	a.stack[previous_sp_value] = 0x10;
 
 	op_00ee(&a);
@@ -30,7 +30,7 @@ static void test_op_00ee_should_set_the_pc_to_address_on_top_of_stack() {
 static void test_op_00ee_should_decrease_sp_by_one() {
 	Chip8 a;
 	a.sp = 0x05;
-	int previous_sp_value = a.sp - 1;
+	uint8_t previous_sp_value = a.sp - 1;
 
 	op_00ee(&a);
 
