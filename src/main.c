@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
 	op_8xy7(a);
 	op_8xye(a);
 	op_9xy0(a);
+	op_annn(a);
 	destroy(a);
 	return 0;
 }

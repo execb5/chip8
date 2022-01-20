@@ -517,6 +517,15 @@ static void test_op_9xy0_should_maintain_pc_if_vx_is_equal_to_vy() {
 	assert_int_equal(a.pc, 0);
 }
 
+static void test_op_annn_should_set_nnn_to_index() {
+	Chip8 a;
+	a.opcode = 0xa123;
+
+	op_annn(&a);
+
+	assert_int_equal(a.index, 0x0123);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -557,6 +566,7 @@ int main(void) {
 		cmocka_unit_test(test_op_8xye_should_set_vf_to_0_if_most_significant_bit_is_0),
 		cmocka_unit_test(test_op_9xy0_should_increment_pc_by_two_if_vx_is_different_than_vy),
 		cmocka_unit_test(test_op_9xy0_should_maintain_pc_if_vx_is_equal_to_vy),
+		cmocka_unit_test(test_op_annn_should_set_nnn_to_index),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

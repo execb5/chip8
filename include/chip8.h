@@ -46,6 +46,7 @@ void op_8xy6(Chip8* chip); // SHR Vx
 void op_8xy7(Chip8* chip); // SUBN Vx, Vy
 void op_8xye(Chip8* chip); // SHL Vx {, Vy}
 void op_9xy0(Chip8* chip); // SNE Vx, Vy
+void op_annn(Chip8* chip); // LD I, addr
 void destroy(Chip8* chip);
 
 #endif /* CHIP8_H */
