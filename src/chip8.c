@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include "chip8.h"
 
 static uint16_t start_address = 0x0200;
@@ -40,7 +39,6 @@ Chip8* create(char* rom_name) {
 	fread(&a->memory[start_address], end_address - start_address, 1, f);
 	fclose(f);
 	memcpy(&a->memory[font_set_start_address], font_set, font_set_size);
-	srand(time(NULL));
 	return a;
 }
 
