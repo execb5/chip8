@@ -562,6 +562,60 @@ static void test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero() {
 	assert_int_equal(a.registers[vx], 0);
 }
 
+static void test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy() {
+	Chip8 a;
+	a.index = 0x00ff;
+	uint8_t n = 0x08;
+
+	memset(a.video, 0x00, CHIP8_PIXEL_COUNT);
+
+	// sprite is a square 8x8
+	for (uint8_t row = 0x00; row < n; ++row) {
+		a.memory[a.index + row] = 0xff;
+	}
+
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0x0a;
+	uint8_t vy_value = 0x05;
+	a.registers[vx] = vx_value;
+	a.registers[vy] = vy_value;
+	a.opcode = 0xd000 + (vx << 8u) + (vy << 4u) + n;
+
+	op_dxyn(&a);
+
+	for (uint8_t row = 0; row < n; ++row) {
+		for (int column = 0; column < 8; ++column) {
+			assert_int_equal(a.video[(vy_value + row) * CHIP8_SCREEN_WIDTH + (vx_value + column)], 0xff);
+		}
+	}
+}
+
+static void test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision() {
+	Chip8 a;
+	a.index = 0x00ff;
+	uint8_t n = 0x08;
+
+	memset(a.video, 0xff, CHIP8_PIXEL_COUNT);
+
+	// sprite is a square 8x8
+	for (uint8_t row = 0x00; row < n; ++row) {
+		a.memory[a.index + row] = 0xff;
+	}
+
+	uint8_t vx = 0x02;
+	uint8_t vy = 0x03;
+	uint8_t vx_value = 0x0a;
+	uint8_t vy_value = 0x05;
+	a.registers[vx] = vx_value;
+	a.registers[vy] = vy_value;
+	a.opcode = 0xd000 + (vx << 8u) + (vy << 4u) + n;
+
+	op_dxyn(&a);
+
+	assert_int_equal(a.registers[0xf], 0x01);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -606,6 +660,8 @@ int main(void) {
 		cmocka_unit_test(test_op_bnnn_should_set_pc_to_nnn_plus_v0),
 		cmocka_unit_test(test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_255),
 		cmocka_unit_test(test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero),
+		cmocka_unit_test(test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy),
+		cmocka_unit_test(test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

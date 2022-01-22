@@ -228,6 +228,34 @@ void op_cxkk(Chip8* chip) {
 	chip->registers[vx] = random_byte & byte;
 }
 
+void op_dxyn(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
+	uint8_t vy = (chip->opcode & 0x00f0u) >> 4u;
+	uint8_t n = chip->opcode & 0x000fu;
+
+	uint8_t x_start = chip->registers[vx] % CHIP8_SCREEN_WIDTH;
+	uint8_t y_start = chip->registers[vy] % CHIP8_SCREEN_HEIGHT;
+
+	chip->registers[0xf] = 0x00;
+
+	for (uint8_t row = 0; row < n; row++) {
+		uint8_t sprite_byte = chip->memory[chip->index + row];
+
+		for (int column = 0; column < 8; ++column) {
+			uint8_t sprite_pixel = sprite_byte & (0x80u >> column);
+			uint8_t* screen_pixel = &chip->video[(y_start + row) * CHIP8_SCREEN_WIDTH + (x_start + column)];
+
+			if (sprite_pixel) {
+				if (*screen_pixel == 0xff) {
+					chip->registers[0xf] = 0x01;
+				}
+
+				*screen_pixel ^= 0xff;
+			}
+		}
+	}
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
