@@ -642,6 +642,32 @@ static void test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision() {
 	assert_int_equal(a.registers[0xf], 0x01);
 }
 
+static void test_op_ex9e_should_increment_pc_if_key_with_the_value_of_vx_is_pressed() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x0a;
+	a.keypad[vx_value] = 0xff;
+	a.opcode = (vx << 8u) + 0xe09e;
+	a.pc = 0x0000;
+
+	op_ex9e(&a);
+
+	assert_int_equal(a.pc, 0x0002);
+}
+
+static void test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_not_pressed() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x0a;
+	a.keypad[vx_value] = 0x00;
+	a.opcode = (vx << 8u) + 0xe09e;
+	a.pc = 0x0000;
+
+	op_ex9e(&a);
+
+	assert_int_equal(a.pc, 0x0000);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -689,6 +715,8 @@ int main(void) {
 		cmocka_unit_test(test_op_cxkk_should_set_vx_to_kk_and_a_random_number),
 		cmocka_unit_test(test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy),
 		cmocka_unit_test(test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision),
+		cmocka_unit_test(test_op_ex9e_should_increment_pc_if_key_with_the_value_of_vx_is_pressed),
+		cmocka_unit_test(test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_not_pressed),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

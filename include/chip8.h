@@ -332,6 +332,19 @@ void op_cxkk(Chip8* chip, uint8_t (*byte_generator_function)());
  * @param chip State of the chip8 CPU.
  */
 void op_dxyn(Chip8* chip);
+
+/**
+ * @name Ex9E
+ * @brief Skip next instruction if key with the value of Vx is pressed.
+ *
+ * @verbatim SKP Vx @endverbatim
+ *
+ * Checks the keyboard, and if the key corresponding to the value of Vx is
+ * currently in the down position, PC is increased by 2.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_ex9e(Chip8* chip);
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
