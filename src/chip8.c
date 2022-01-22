@@ -221,7 +221,7 @@ void op_annn(Chip8* chip) {
 }
 
 void op_bnnn(Chip8* chip) {
-	chip->pc = chip->registers[0] + chip->opcode & 0x0fffu;
+	chip->pc = chip->registers[0x0] + (chip->opcode & 0x0fffu);
 }
 
 void op_cxkk(Chip8* chip) {
