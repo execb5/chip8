@@ -5,6 +5,17 @@
 #include <string.h>
 #include "chip8.h"
 
+static uint32_t next = 1;
+
+static void my_cute_srand(uint32_t seed) {
+	next = seed;
+}
+
+static uint8_t my_cute_rand(void) {
+	next = next * 1103515245 + 12345;
+	return (uint8_t) (next / 65536) % 32768;
+}
+
 static void test_op_00e0_should_fill_memory_with_zeroes() {
 	Chip8 a;
 	memset(a.video, 0x01, CHIP8_PIXEL_COUNT);
@@ -541,10 +552,10 @@ static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_2
 	uint8_t vx = 0x02;
 	uint8_t vx_value = 0x10;
 	a.registers[vx] = vx_value;
-	uint8_t kk = 0xFF;
+	uint8_t kk = 0xff;
 	a.opcode = (vx << 8u) + kk;
 
-	op_cxkk(&a);
+	op_cxkk(&a, my_cute_rand);
 
 	assert_in_range(a.registers[vx], 0, 255);
 }
@@ -557,9 +568,24 @@ static void test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero() {
 	uint8_t kk = 0x00;
 	a.opcode = (vx << 8u) + kk;
 
-	op_cxkk(&a);
+	op_cxkk(&a, my_cute_rand);
 
 	assert_int_equal(a.registers[vx], 0);
+}
+
+static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a.registers[vx] = vx_value;
+	uint8_t kk = 0xff;
+	a.opcode = (vx << 8u) + kk;
+
+	my_cute_srand(0xfaaffaaf);
+
+	op_cxkk(&a, my_cute_rand);
+
+	assert_int_equal(a.registers[vx], 0xa9);
 }
 
 static void test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy() {
@@ -660,6 +686,7 @@ int main(void) {
 		cmocka_unit_test(test_op_bnnn_should_set_pc_to_nnn_plus_v0),
 		cmocka_unit_test(test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_255),
 		cmocka_unit_test(test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero),
+		cmocka_unit_test(test_op_cxkk_should_set_vx_to_kk_and_a_random_number),
 		cmocka_unit_test(test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy),
 		cmocka_unit_test(test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision),
 	};

@@ -310,8 +310,10 @@ void op_bnnn(Chip8* chip);
  * with the value kk. The results are stored in Vx.
  *
  * @param chip State of the chip8 CPU.
+ * @param byte_generator_function Function to generate a random number between 0
+ * and 255.
  */
-void op_cxkk(Chip8* chip);
+void op_cxkk(Chip8* chip, uint8_t (*byte_generator_function)());
 
 /**
  * @name Dxyn
@@ -331,5 +333,6 @@ void op_cxkk(Chip8* chip);
  */
 void op_dxyn(Chip8* chip);
 void destroy(Chip8* chip);
+uint8_t generate_random_byte(void);
 
 #endif /* CHIP8_H */

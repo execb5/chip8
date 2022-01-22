@@ -224,16 +224,13 @@ void op_bnnn(Chip8* chip) {
 	chip->pc = chip->registers[0x0] + (chip->opcode & 0x0fffu);
 }
 
-void op_cxkk(Chip8* chip) {
+void op_cxkk(Chip8* chip, uint8_t (*byte_generator_function)()) {
 	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
-	uint8_t byte = chip->opcode & 0x00ffu;
+	uint8_t kk = chip->opcode & 0x00ffu;
 
-	uint8_t random_byte;
-	FILE* dev_random = fopen("/dev/random", "r");
-	fread(&random_byte, sizeof(uint8_t), 1, dev_random);
-	fclose(dev_random);
+	uint8_t random_byte = (*byte_generator_function)();
 
-	chip->registers[vx] = random_byte & byte;
+	chip->registers[vx] = random_byte & kk;
 }
 
 void op_dxyn(Chip8* chip) {
@@ -266,4 +263,13 @@ void op_dxyn(Chip8* chip) {
 
 void destroy(Chip8* chip) {
 	free(chip);
+}
+
+uint8_t generate_random_byte(void) {
+	uint8_t random_byte;
+	FILE* dev_random = fopen("/dev/random", "r");
+	fread(&random_byte, sizeof(uint8_t), 1, dev_random);
+	fclose(dev_random);
+
+	return random_byte;
 }
