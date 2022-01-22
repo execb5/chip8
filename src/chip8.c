@@ -27,7 +27,7 @@ static uint8_t font_set[80] = {
 	0xf0, 0x80, 0xf0, 0x80, 0x80  // F
 };
 
-Chip8* create() {
+Chip8* create(void) {
 	Chip8* a = calloc(1, sizeof(Chip8));
 
 	if (!a) {
