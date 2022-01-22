@@ -25,7 +25,8 @@ typedef struct Chip8 {
 	uint16_t opcode;
 } Chip8;
 
-Chip8* create(char* rom_name);
+Chip8* create();
+Chip8* load_rom(Chip8* chip, char* rom_name);
 void dump_memory_to_file(Chip8* chip, char* memory_file_name);
 
 /**

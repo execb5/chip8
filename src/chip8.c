@@ -27,19 +27,27 @@ static uint8_t font_set[80] = {
 	0xf0, 0x80, 0xf0, 0x80, 0x80  // F
 };
 
-Chip8* create(char* rom_name) {
+Chip8* create() {
 	Chip8* a = calloc(1, sizeof(Chip8));
+
 	if (!a) {
 		exit(2);
 	}
+
+	memcpy(&a->memory[font_set_start_address], font_set, font_set_size);
+
+	return a;
+}
+
+Chip8* load_rom(Chip8* chip, char* rom_name) {
 	FILE* f = fopen(rom_name, "r");
 	if (!f) {
 		exit(1);
 	}
-	fread(&a->memory[start_address], end_address - start_address, 1, f);
+	fread(&chip->memory[start_address], end_address - start_address, 1, f);
 	fclose(f);
-	memcpy(&a->memory[font_set_start_address], font_set, font_set_size);
-	return a;
+
+	return chip;
 }
 
 void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
