@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "chip8.h"
+#include "../include/chip8.h"
 
 static uint16_t start_address = 0x0200;
 static uint16_t end_address = 0x0fff;

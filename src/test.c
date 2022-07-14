@@ -3,7 +3,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 #include <string.h>
-#include "chip8.h"
+#include "../include/chip8.h"
 
 static uint32_t next = 1;
 

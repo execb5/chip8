@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "chip8.h"
+#include "../include/chip8.h"
 
 #define NUMBER_OF_ARGUMENTS 2
 
