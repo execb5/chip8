@@ -19,6 +19,12 @@ jobs:
       run: xz -d cmocka-1.1.5.tar.xz && tar vxf cmocka-1.1.5.tar
     - name: install cmocka
       run: (cd cmocka-1.1.5 && mkdir build && cd $_ && cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install)
+    - name: Cache Compiled code
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-compiled
+        path: |
+          ./obj
     - name: make
       run: make
 
@@ -36,6 +42,12 @@ jobs:
       run: xz -d cmocka-1.1.5.tar.xz && tar vxf cmocka-1.1.5.tar
     - name: install cmocka
       run: (cd cmocka-1.1.5 && mkdir build && cd $_ && cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install)
+    - name: Cache Compiled code
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-compiled
+        path: |
+          ./obj
     - name: make run_test
       run: export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH} && make run_test
 
