@@ -345,6 +345,7 @@ void op_dxyn(Chip8* chip);
  * @param chip State of the chip8 CPU.
  */
 void op_ex9e(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
