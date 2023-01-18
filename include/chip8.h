@@ -346,6 +346,19 @@ void op_dxyn(Chip8* chip);
  */
 void op_ex9e(Chip8* chip);
 
+/**
+ * @name ExA1
+ * @brief Skip next instruction if key with the value of Vx is not pressed.
+ *
+ * @verbatim SKNP Vx @endverbatim
+ *
+ * Checks the keyboard, and if the key corresponding to the value of Vx is
+ * currently in the up position, PC is increased by 2.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_exa1(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

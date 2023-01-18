@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
 	op_cxkk(a, generate_random_byte);
 	op_dxyn(a);
 	op_ex9e(a);
+	op_exa1(a);
 	destroy(a);
 	return 0;
 }
