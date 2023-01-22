@@ -39,15 +39,13 @@ Chip8* create(void) {
 	return a;
 }
 
-Chip8* load_rom(Chip8* chip, char* rom_name) {
+void load_rom(Chip8* chip, char* rom_name) {
 	FILE* f = fopen(rom_name, "r");
 	if (!f) {
 		exit(1);
 	}
 	fread(&chip->memory[start_address], end_address - start_address, 1, f);
 	fclose(f);
-
-	return chip;
 }
 
 void dump_memory_to_file(Chip8* chip, char* memory_file_name) {
