@@ -694,6 +694,19 @@ static void test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_
 	assert_int_equal(a.pc, 0x0002);
 }
 
+static void test_op_fx07_should_set_vx_to_the_value_of_delay_timer() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+	a.delayTimer = 0x15;
+
+	op_fx07(&a);
+
+	assert_int_equal(a.registers[vx], a.delayTimer);
+}
+
 int main(void) {
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
@@ -745,6 +758,7 @@ int main(void) {
 		cmocka_unit_test(test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_not_pressed),
 		cmocka_unit_test(test_op_exa1_should_not_increment_pc_if_key_with_the_value_of_vx_is_pressed),
 		cmocka_unit_test(test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_pressed),
+		cmocka_unit_test(test_op_fx07_should_set_vx_to_the_value_of_delay_timer),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

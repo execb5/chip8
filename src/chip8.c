@@ -281,6 +281,12 @@ void op_exa1(Chip8* chip) {
 	}
 }
 
+void op_fx07(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+
+	chip->registers[vx] = chip->delayTimer;
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
