@@ -246,7 +246,7 @@ void op_dxyn(Chip8* chip) {
 	for (uint8_t row = 0; row < n; row++) {
 		uint8_t sprite_byte = chip->memory[chip->index + row];
 
-		for (int column = 0; column < 8; ++column) {
+		for (int column = 0; column < 8; column++) {
 			uint8_t sprite_pixel = sprite_byte & (0x80u >> column);
 			uint8_t* screen_pixel = &chip->video[(y_start + row) * CHIP8_SCREEN_WIDTH + (x_start + column)];
 
