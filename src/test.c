@@ -778,6 +778,19 @@ static void test_op_fx1e_should_increment_index_by_the_value_of_vx() {
 	assert_int_equal(a.index, 0x000c);
 }
 
+static void test_op_fx29_should_set_index_to_the_location_for_the_hexadecimal_sprite_corresponding_to_the_value_of_vx() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint16_t vx_value = 0x0004;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+	a.index = 0x0000;
+
+	op_fx29(&a);
+
+	assert_int_equal(a.index, 0x0064);
+}
+
 int main(void) {
 	srand(time(NULL));
 	const struct CMUnitTest tests[] = {
@@ -836,6 +849,7 @@ int main(void) {
 		cmocka_unit_test(test_op_fx15_should_set_delay_timer_to_the_value_of_vx),
 		cmocka_unit_test(test_op_fx18_should_set_sound_timer_to_the_value_of_vx),
 		cmocka_unit_test(test_op_fx1e_should_increment_index_by_the_value_of_vx),
+		cmocka_unit_test(test_op_fx29_should_set_index_to_the_location_for_the_hexadecimal_sprite_corresponding_to_the_value_of_vx),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

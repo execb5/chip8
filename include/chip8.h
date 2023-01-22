@@ -420,6 +420,20 @@ void op_fx18(Chip8* chip);
  */
 void op_fx1e(Chip8* chip);
 
+/**
+ * @name Fx29
+ * @brief Set I = location of sprite for digit Vx.
+ *
+ * @verbatim LD F, Vx @endverbatim
+ *
+ * The value of I is set to the location for the hexadecimal sprite
+ * corresponding to the value of Vx. See section 2.4, Display, for more
+ * information on the Chip-8 hexadecimal font.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx29(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
