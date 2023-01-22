@@ -371,6 +371,19 @@ void op_exa1(Chip8* chip);
  */
 void op_fx07(Chip8* chip);
 
+/**
+ * @name Fx0A
+ * @brief Wait for a key press, store the value of the key in Vx.
+ *
+ * @verbatim LD Vx, K @endverbatim
+ *
+ * All execution stops until a key is pressed, then the value of that key is
+ * stored in Vx.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx0a(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

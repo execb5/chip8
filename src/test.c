@@ -3,6 +3,8 @@
 #include <setjmp.h>
 #include <cmocka.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 #include "../include/chip8.h"
 
 static uint32_t next = 1;
@@ -707,7 +709,38 @@ static void test_op_fx07_should_set_vx_to_the_value_of_delay_timer() {
 	assert_int_equal(a.registers[vx], a.delayTimer);
 }
 
+static void test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed() {
+	my_cute_srand(rand());
+	int i = my_cute_rand() % 16;
+	Chip8* a = create();
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a->registers[vx] = vx_value;
+	a->opcode = (vx << 8u);
+	a->keypad[i] = 1;
+
+	op_fx0a(a);
+
+	assert_int_equal(a->registers[vx], i);
+
+	destroy(a);
+}
+
+static void test_op_fx0a_should_increment_pc_if_no_key_is_pressed() {
+	Chip8* a = create();
+	uint8_t vx = 0x02;
+	a->opcode = (vx << 8u);
+	a->pc = 0x0020;
+
+	op_fx0a(a);
+
+	assert_int_equal(a->pc, 0x0020);
+
+	destroy(a);
+}
+
 int main(void) {
+	srand(time(NULL));
 	const struct CMUnitTest tests[] = {
 		cmocka_unit_test(test_op_00e0_should_fill_memory_with_zeroes),
 		cmocka_unit_test(test_op_00ee_should_set_the_pc_to_address_on_top_of_stack),
@@ -759,6 +792,8 @@ int main(void) {
 		cmocka_unit_test(test_op_exa1_should_not_increment_pc_if_key_with_the_value_of_vx_is_pressed),
 		cmocka_unit_test(test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_pressed),
 		cmocka_unit_test(test_op_fx07_should_set_vx_to_the_value_of_delay_timer),
+		cmocka_unit_test(test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed),
+		cmocka_unit_test(test_op_fx0a_should_increment_pc_if_no_key_is_pressed),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

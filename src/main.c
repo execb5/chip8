@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
 	op_ex9e(a);
 	op_exa1(a);
 	op_fx07(a);
+	op_fx0a(a);
 	destroy(a);
 	return 0;
 }

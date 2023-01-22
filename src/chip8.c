@@ -287,6 +287,46 @@ void op_fx07(Chip8* chip) {
 	chip->registers[vx] = chip->delayTimer;
 }
 
+void op_fx0a(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+
+	if (chip->keypad[0x0]) {
+		chip->registers[vx] = 0x0;
+	} else if (chip->keypad[0x1]) {
+		chip->registers[vx] = 0x1;
+	} else if (chip->keypad[0x2]) {
+		chip->registers[vx] = 0x2;
+	} else if (chip->keypad[0x3]) {
+		chip->registers[vx] = 0x3;
+	} else if (chip->keypad[0x4]) {
+		chip->registers[vx] = 0x4;
+	} else if (chip->keypad[0x5]) {
+		chip->registers[vx] = 0x5;
+	} else if (chip->keypad[0x6]) {
+		chip->registers[vx] = 0x6;
+	} else if (chip->keypad[0x7]) {
+		chip->registers[vx] = 0x7;
+	} else if (chip->keypad[0x8]) {
+		chip->registers[vx] = 0x8;
+	} else if (chip->keypad[0x9]) {
+		chip->registers[vx] = 0x9;
+	} else if (chip->keypad[0xa]) {
+		chip->registers[vx] = 0xa;
+	} else if (chip->keypad[0xb]) {
+		chip->registers[vx] = 0xb;
+	} else if (chip->keypad[0xc]) {
+		chip->registers[vx] = 0xc;
+	} else if (chip->keypad[0xd]) {
+		chip->registers[vx] = 0xd;
+	} else if (chip->keypad[0xe]) {
+		chip->registers[vx] = 0xe;
+	} else if (chip->keypad[0xf]) {
+		chip->registers[vx] = 0xf;
+	} else {
+		chip->opcode -= 2;
+	}
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
