@@ -351,6 +351,19 @@ void op_fx29(Chip8* chip) {
 	chip->index = font_set_start_address + (5 * chip->registers[vx]);
 }
 
+void op_fx33(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx_value = chip->registers[vx];
+
+	chip->memory[chip->index + 2] = vx_value % 10;
+	vx_value /= 10;
+
+	chip->memory[chip->index + 1] = vx_value % 10;
+	vx_value /= 10;
+
+	chip->memory[chip->index] = vx_value % 10;
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }

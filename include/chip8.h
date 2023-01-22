@@ -434,6 +434,20 @@ void op_fx1e(Chip8* chip);
  */
 void op_fx29(Chip8* chip);
 
+/**
+ * @name Fx33
+ * @brief Store BCD representation of Vx in memory locations I, I+1, and I+2.
+ *
+ * @verbatim LD B, Vx @endverbatim
+ *
+ * The interpreter takes the decimal value of Vx, and places the hundreds digit
+ * in memory at location in I, the tens digit at location I+1, and the ones
+ * digit at location I+2.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx33(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
