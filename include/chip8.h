@@ -396,6 +396,18 @@ void op_fx0a(Chip8* chip);
  */
 void op_fx15(Chip8* chip);
 
+/**
+ * @name Fx18
+ * @brief Set sound timer = Vx.
+ *
+ * @verbatim LD ST, Vx @endverbatim
+ *
+ * ST is set equal to the value of Vx.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx18(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

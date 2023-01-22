@@ -333,6 +333,12 @@ void op_fx15(Chip8* chip) {
 	chip->delayTimer = chip->registers[vx];
 }
 
+void op_fx18(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+
+	chip->soundTimer = chip->registers[vx];
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }

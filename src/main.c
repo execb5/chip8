@@ -40,6 +40,7 @@ int main(int argc, char** argv) {
 	op_fx07(a);
 	op_fx0a(a);
 	op_fx15(a);
+	op_fx18(a);
 	destroy(a);
 	return 0;
 }
