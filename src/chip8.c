@@ -284,7 +284,7 @@ void op_exa1(Chip8* chip) {
 void op_fx07(Chip8* chip) {
 	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
 
-	chip->registers[vx] = chip->delayTimer;
+	chip->registers[vx] = chip->delay_timer;
 }
 
 void op_fx0a(Chip8* chip) {
@@ -330,13 +330,13 @@ void op_fx0a(Chip8* chip) {
 void op_fx15(Chip8* chip) {
 	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
 
-	chip->delayTimer = chip->registers[vx];
+	chip->delay_timer = chip->registers[vx];
 }
 
 void op_fx18(Chip8* chip) {
 	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
 
-	chip->soundTimer = chip->registers[vx];
+	chip->sound_timer = chip->registers[vx];
 }
 
 void destroy(Chip8* chip) {

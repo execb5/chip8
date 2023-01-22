@@ -702,11 +702,11 @@ static void test_op_fx07_should_set_vx_to_the_value_of_delay_timer() {
 	uint8_t vx_value = 0x10;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
-	a.delayTimer = 0x15;
+	a.delay_timer = 0x15;
 
 	op_fx07(&a);
 
-	assert_int_equal(a.registers[vx], a.delayTimer);
+	assert_int_equal(a.registers[vx], a.delay_timer);
 }
 
 static void test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed() {
@@ -745,11 +745,11 @@ static void test_op_fx15_should_set_delay_timer_to_the_value_of_vx() {
 	uint8_t vx_value = 0x10;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
-	a.delayTimer = 0x15;
+	a.delay_timer = 0x15;
 
 	op_fx15(&a);
 
-	assert_int_equal(a.delayTimer, vx_value);
+	assert_int_equal(a.delay_timer, vx_value);
 }
 
 static void test_op_fx18_should_set_sound_timer_to_the_value_of_vx() {
@@ -758,11 +758,11 @@ static void test_op_fx18_should_set_sound_timer_to_the_value_of_vx() {
 	uint8_t vx_value = 0x10;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
-	a.soundTimer = 0x15;
+	a.sound_timer = 0x15;
 
 	op_fx18(&a);
 
-	assert_int_equal(a.soundTimer, vx_value);
+	assert_int_equal(a.sound_timer, vx_value);
 }
 
 int main(void) {
