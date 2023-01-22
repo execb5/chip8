@@ -460,6 +460,18 @@ void op_fx33(Chip8* chip);
  */
 void op_fx55(Chip8* chip);
 
+/**
+ * @name Fx65
+ * @brief Read registers V0 through Vx from memory starting at location I.
+ *
+ * @verbatim LD Vx, [I] @endverbatim
+ *
+ * The interpreter reads values from memory starting at location I into registers V0 through Vx.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx65(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
