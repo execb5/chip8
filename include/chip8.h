@@ -384,6 +384,18 @@ void op_fx07(Chip8* chip);
  */
 void op_fx0a(Chip8* chip);
 
+/**
+ * @name Fx15
+ * @brief Set delay timer = Vx.
+ *
+ * @verbatim LD DT, Vx @endverbatim
+ *
+ * DT is set equal to the value of Vx.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx15(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

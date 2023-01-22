@@ -739,6 +739,19 @@ static void test_op_fx0a_should_increment_pc_if_no_key_is_pressed() {
 	destroy(a);
 }
 
+static void test_op_fx15_should_set_delay_timer_to_the_value_of_vx() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	uint8_t vx_value = 0x10;
+	a.registers[vx] = vx_value;
+	a.opcode = (vx << 8u);
+	a.delayTimer = 0x15;
+
+	op_fx15(&a);
+
+	assert_int_equal(a.delayTimer, vx_value);
+}
+
 int main(void) {
 	srand(time(NULL));
 	const struct CMUnitTest tests[] = {
@@ -794,6 +807,7 @@ int main(void) {
 		cmocka_unit_test(test_op_fx07_should_set_vx_to_the_value_of_delay_timer),
 		cmocka_unit_test(test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed),
 		cmocka_unit_test(test_op_fx0a_should_increment_pc_if_no_key_is_pressed),
+		cmocka_unit_test(test_op_fx15_should_set_delay_timer_to_the_value_of_vx),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);
