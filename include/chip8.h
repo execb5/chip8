@@ -448,6 +448,18 @@ void op_fx29(Chip8* chip);
  */
 void op_fx33(Chip8* chip);
 
+/**
+ * @name Fx55
+ * @brief Store registers V0 through Vx in memory starting at location I.
+ *
+ * @verbatim LD [I], Vx @endverbatim
+ *
+ * The interpreter copies the values of registers V0 through Vx into memory, starting at the address in I.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx55(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

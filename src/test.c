@@ -806,6 +806,22 @@ static void test_op_fx33_should_store_bcd_representation_of_vx_in_memory_locatio
 	assert_int_equal(a.memory[a.index + 2], 3);
 }
 
+static void test_op_fx55_should_store_registers_v0_through_vx_in_memory_starting_at_location_i() {
+	Chip8 a;
+	uint8_t vx = 0x02;
+	a.opcode = (vx << 8u);
+	a.registers[0x00] = 0x00;
+	a.registers[0x01] = 0x01;
+	a.registers[0x02] = 0x02;
+	a.index = 0x0005;
+
+	op_fx55(&a);
+
+	assert_int_equal(a.memory[a.index], a.registers[0x00]);
+	assert_int_equal(a.memory[a.index + 1], a.registers[0x01]);
+	assert_int_equal(a.memory[a.index + 2], a.registers[0x02]);
+}
+
 int main(void) {
 	srand(time(NULL));
 	const struct CMUnitTest tests[] = {
@@ -866,6 +882,7 @@ int main(void) {
 		cmocka_unit_test(test_op_fx1e_should_increment_index_by_the_value_of_vx),
 		cmocka_unit_test(test_op_fx29_should_set_index_to_the_location_for_the_hexadecimal_sprite_corresponding_to_the_value_of_vx),
 		cmocka_unit_test(test_op_fx33_should_store_bcd_representation_of_vx_in_memory_locations_i_i_plus_one_i_plus_two),
+		cmocka_unit_test(test_op_fx55_should_store_registers_v0_through_vx_in_memory_starting_at_location_i),
 	};
 
 	return cmocka_run_group_tests(tests, NULL, NULL);

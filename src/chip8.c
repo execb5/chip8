@@ -364,6 +364,14 @@ void op_fx33(Chip8* chip) {
 	chip->memory[chip->index] = vx_value % 10;
 }
 
+void op_fx55(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+
+	for (uint8_t i = 0; i <= vx; i++) {
+		chip->memory[chip->index + i] = chip->registers[i];
+	}
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
