@@ -262,7 +262,7 @@ void op_dxyn(Chip8* chip) {
 }
 
 void op_ex9e(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	uint8_t key = chip->registers[vx];
 
@@ -272,7 +272,7 @@ void op_ex9e(Chip8* chip) {
 }
 
 void op_exa1(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	uint8_t key = chip->registers[vx];
 
@@ -282,13 +282,13 @@ void op_exa1(Chip8* chip) {
 }
 
 void op_fx07(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	chip->registers[vx] = chip->delay_timer;
 }
 
 void op_fx0a(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	if (chip->keypad[0x0]) {
 		chip->registers[vx] = 0x0;
@@ -328,31 +328,31 @@ void op_fx0a(Chip8* chip) {
 }
 
 void op_fx15(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	chip->delay_timer = chip->registers[vx];
 }
 
 void op_fx18(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	chip->sound_timer = chip->registers[vx];
 }
 
 void op_fx1e(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	chip->index += chip->registers[vx];
 }
 
 void op_fx29(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	chip->index = font_set_start_address + (5 * chip->registers[vx]);
 }
 
 void op_fx33(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 	uint8_t vx_value = chip->registers[vx];
 
 	chip->memory[chip->index + 2] = vx_value % 10;
@@ -365,7 +365,7 @@ void op_fx33(Chip8* chip) {
 }
 
 void op_fx55(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	for (uint8_t i = 0; i <= vx; i++) {
 		chip->memory[chip->index + i] = chip->registers[i];
@@ -373,7 +373,7 @@ void op_fx55(Chip8* chip) {
 }
 
 void op_fx65(Chip8* chip) {
-	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+	uint8_t vx = (chip->opcode & 0x0f00u) >> 8u;
 
 	for (uint8_t i = 0; i <= vx; i++) {
 		chip->registers[i] = chip->memory[chip->index + i];
