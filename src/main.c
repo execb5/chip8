@@ -41,6 +41,7 @@ int main(int argc, char** argv) {
 	op_fx0a(a);
 	op_fx15(a);
 	op_fx18(a);
+	op_fx1e(a);
 	destroy(a);
 	return 0;
 }

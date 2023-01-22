@@ -408,6 +408,18 @@ void op_fx15(Chip8* chip);
  */
 void op_fx18(Chip8* chip);
 
+/**
+ * @name Fx1E
+ * @brief Set I = I + Vx.
+ *
+ * @verbatim ADD I, Vx @endverbatim
+ *
+ * The values of I and Vx are added, and the results are stored in I.
+ *
+ * @param chip State of the chip8 CPU.
+ */
+void op_fx1e(Chip8* chip);
+
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 

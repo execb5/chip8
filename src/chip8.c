@@ -339,6 +339,12 @@ void op_fx18(Chip8* chip) {
 	chip->sound_timer = chip->registers[vx];
 }
 
+void op_fx1e(Chip8* chip) {
+	uint8_t vx = (chip->opcode & 0x0F00u) >> 8u;
+
+	chip->index += chip->registers[vx];
+}
+
 void destroy(Chip8* chip) {
 	free(chip);
 }
