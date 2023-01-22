@@ -253,7 +253,7 @@ static void test_op_8xy0_should_save_vy_in_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vy_value = 0x0a;
+	uint16_t vy_value = 0x000a;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = 0x00;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -267,8 +267,8 @@ static void test_op_8xy1_should_set_vx_or_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xf0;
-	uint8_t vy_value = 0x0f;
+	uint16_t vx_value = 0x00f0;
+	uint16_t vy_value = 0x000f;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -282,8 +282,8 @@ static void test_op_8xy2_should_set_vx_and_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xf0;
-	uint8_t vy_value = 0x0f;
+	uint16_t vx_value = 0x00f0;
+	uint16_t vy_value = 0x000f;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -297,8 +297,8 @@ static void test_op_8xy3_should_set_vx_xor_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xf0;
-	uint8_t vy_value = 0x0f;
+	uint16_t vx_value = 0x00f0;
+	uint16_t vy_value = 0x000f;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -312,8 +312,8 @@ static void test_op_8xy4_should_set_vx_plus_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xf0;
-	uint8_t vy_value = 0x0f;
+	uint16_t vx_value = 0x00f0;
+	uint16_t vy_value = 0x000f;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -327,8 +327,8 @@ static void test_op_8xy4_should_set_overflow_flag_on_sums_bigger_than_size() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xff;
-	uint8_t vy_value = 0x01;
+	uint16_t vx_value = 0x00ff;
+	uint16_t vy_value = 0x0001;
 	uint8_t sum = vx_value + vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
@@ -344,8 +344,8 @@ static void test_op_8xy5_should_set_vx_minus_vy_to_register_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xff;
-	uint8_t vy_value = 0x01;
+	uint16_t vx_value = 0x00ff;
+	uint16_t vy_value = 0x0001;
 	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
@@ -360,8 +360,8 @@ static void test_op_8xy5_should_set_1_to_vf_if_vx_greater_than_vy() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xff;
-	uint8_t vy_value = 0x01;
+	uint16_t vx_value = 0x00ff;
+	uint16_t vy_value = 0x0001;
 	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
@@ -377,8 +377,8 @@ static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x01;
-	uint8_t vy_value = 0xff;
+	uint16_t vx_value = 0x0001;
+	uint16_t vy_value = 0x00ff;
 	uint8_t sub = vx_value - vy_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
@@ -393,7 +393,7 @@ static void test_op_8xy5_should_set_0_to_vf_if_vx_lesser_than_vy() {
 static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0b;
+	uint16_t vx_value = 0x000b;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 
@@ -407,7 +407,7 @@ static void test_op_8xy6_should_set_the_least_significant_bit_of_vx_to_vf() {
 static void test_op_8xy6_should_divide_vx_by_2() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0b;
+	uint16_t vx_value = 0x000b;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 
@@ -420,8 +420,8 @@ static void test_op_8xy7_should_set_vx_to_vy_minus_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xff;
-	uint8_t vy_value = 0x01;
+	uint16_t vx_value = 0x00ff;
+	uint16_t vy_value = 0x0001;
 	uint8_t sub = vy_value - vx_value;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
@@ -436,8 +436,8 @@ static void test_op_8xy7_should_set_vf_to_1_if_vy_greater_than_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x01;
-	uint8_t vy_value = 0xff;
+	uint16_t vx_value = 0x0001;
+	uint16_t vy_value = 0x00ff;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -451,8 +451,8 @@ static void test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0xff;
-	uint8_t vy_value = 0x01;
+	uint16_t vx_value = 0x00ff;
+	uint16_t vy_value = 0x0001;
 	a.registers[vy] = vy_value;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -465,7 +465,7 @@ static void test_op_8xy7_should_set_vf_to_0_if_vy_lesser_than_vx() {
 static void test_op_8xye_should_multiply_vx_by_two() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x04;
+	uint16_t vx_value = 0x0004;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 
@@ -477,7 +477,7 @@ static void test_op_8xye_should_multiply_vx_by_two() {
 static void test_op_8xye_should_set_vf_to_1_if_most_significant_bit_is_1() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x82;
+	uint16_t vx_value = 0x0082;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 
@@ -489,7 +489,7 @@ static void test_op_8xye_should_set_vf_to_1_if_most_significant_bit_is_1() {
 static void test_op_8xye_should_set_vf_to_0_if_most_significant_bit_is_0() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x52;
+	uint16_t vx_value = 0x0052;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 
@@ -503,8 +503,8 @@ static void test_op_9xy0_should_increment_pc_by_two_if_vx_is_different_than_vy()
 	a.pc = 0;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x00;
-	uint8_t vy_value = 0x10;
+	uint16_t vx_value = 0x0000;
+	uint16_t vy_value = 0x0010;
 	a.registers[vx] = vx_value;
 	a.registers[vy] = vy_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -519,8 +519,8 @@ static void test_op_9xy0_should_maintain_pc_if_vx_is_equal_to_vy() {
 	a.pc = 0;
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x10;
-	uint8_t vy_value = 0x10;
+	uint16_t vx_value = 0x0010;
+	uint16_t vy_value = 0x0010;
 	a.registers[vx] = vx_value;
 	a.registers[vy] = vy_value;
 	a.opcode = (vx << 8u) + (vy << 4u);
@@ -552,7 +552,7 @@ static void test_op_bnnn_should_set_pc_to_nnn_plus_v0() {
 static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_255() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	uint8_t kk = 0xff;
 	a.opcode = (vx << 8u) + kk;
@@ -565,7 +565,7 @@ static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number_between_0_and_2
 static void test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	uint8_t kk = 0x00;
 	a.opcode = (vx << 8u) + kk;
@@ -578,7 +578,7 @@ static void test_op_cxkk_should_set_vx_to_zero_if_kk_is_zero() {
 static void test_op_cxkk_should_set_vx_to_kk_and_a_random_number() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	uint8_t kk = 0xff;
 	a.opcode = (vx << 8u) + kk;
@@ -604,8 +604,8 @@ static void test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy() {
 
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x0a;
-	uint8_t vy_value = 0x05;
+	uint16_t vx_value = 0x000a;
+	uint16_t vy_value = 0x0005;
 	a.registers[vx] = vx_value;
 	a.registers[vy] = vy_value;
 	a.opcode = 0xd000 + (vx << 8u) + (vy << 4u) + n;
@@ -633,8 +633,8 @@ static void test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision() {
 
 	uint8_t vx = 0x02;
 	uint8_t vy = 0x03;
-	uint8_t vx_value = 0x0a;
-	uint8_t vy_value = 0x05;
+	uint16_t vx_value = 0x000a;
+	uint16_t vy_value = 0x0005;
 	a.registers[vx] = vx_value;
 	a.registers[vy] = vy_value;
 	a.opcode = 0xd000 + (vx << 8u) + (vy << 4u) + n;
@@ -647,7 +647,7 @@ static void test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision() {
 static void test_op_ex9e_should_increment_pc_if_key_with_the_value_of_vx_is_pressed() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0a;
+	uint16_t vx_value = 0x000a;
 	a.keypad[vx_value] = 0xff;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -660,7 +660,7 @@ static void test_op_ex9e_should_increment_pc_if_key_with_the_value_of_vx_is_pres
 static void test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_not_pressed() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0a;
+	uint16_t vx_value = 0x000a;
 	a.keypad[vx_value] = 0x00;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -673,7 +673,7 @@ static void test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_
 static void test_op_exa1_should_not_increment_pc_if_key_with_the_value_of_vx_is_pressed() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0a;
+	uint16_t vx_value = 0x000a;
 	a.keypad[vx_value] = 0xff;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -686,7 +686,7 @@ static void test_op_exa1_should_not_increment_pc_if_key_with_the_value_of_vx_is_
 static void test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_pressed() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x0a;
+	uint16_t vx_value = 0x000a;
 	a.keypad[vx_value] = 0x00;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -699,7 +699,7 @@ static void test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_
 static void test_op_fx07_should_set_vx_to_the_value_of_delay_timer() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 	a.delay_timer = 0x15;
@@ -714,7 +714,7 @@ static void test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed() {
 	int i = my_cute_rand() % 16;
 	Chip8* a = create();
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a->registers[vx] = vx_value;
 	a->opcode = (vx << 8u);
 	a->keypad[i] = 1;
@@ -742,7 +742,7 @@ static void test_op_fx0a_should_increment_pc_if_no_key_is_pressed() {
 static void test_op_fx15_should_set_delay_timer_to_the_value_of_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 	a.delay_timer = 0x15;
@@ -755,7 +755,7 @@ static void test_op_fx15_should_set_delay_timer_to_the_value_of_vx() {
 static void test_op_fx18_should_set_sound_timer_to_the_value_of_vx() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	uint8_t vx_value = 0x10;
+	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
 	a.opcode = (vx << 8u);
 	a.sound_timer = 0x15;
