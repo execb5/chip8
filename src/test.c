@@ -5,7 +5,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
-#include "../include/chip8.h"
+#include "../include/instructions.h"
 
 static uint32_t next = 1;
 

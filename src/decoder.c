@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../include/decoder.h"
+#include "../include/instructions.h"
 
 static void (*opcode_table[0x10])(Chip8*) = {0};
 static void (*table_zero[0xf])(Chip8*) = {0};
