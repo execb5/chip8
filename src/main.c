@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../include/chip8.h"
+#include "../include/decoder.h"
 
 #define NUMBER_OF_ARGUMENTS 2
 
@@ -46,6 +47,8 @@ int main(int argc, char** argv) {
 	op_fx33(a);
 	op_fx55(a);
 	op_fx65(a);
+	decode(a);
+	cycle(a);
 	destroy(a);
 	return 0;
 }

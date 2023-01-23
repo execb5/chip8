@@ -7,11 +7,11 @@ CFLAGS = -Wall -g -I$(IDIR)
 LIB_FLAGS = -lncurses
 TEST_FLAGS = -lcmocka
 
-_DEPS = chip8.h
+_DEPS = chip8.h decoder.h
 
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = chip8.o
+_OBJ = chip8.o decoder.o
 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
