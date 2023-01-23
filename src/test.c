@@ -648,6 +648,7 @@ static void test_op_ex9e_should_increment_pc_if_key_with_the_value_of_vx_is_pres
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x000a;
+	a.registers[vx] = vx_value;
 	a.keypad[vx_value] = 0xff;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -661,6 +662,7 @@ static void test_op_ex9e_should_not_increment_pc_if_key_with_the_value_of_vx_is_
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x000a;
+	a.registers[vx] = vx_value;
 	a.keypad[vx_value] = 0x00;
 	a.opcode = (vx << 8u) + 0xe09e;
 	a.pc = 0x0000;
@@ -674,8 +676,9 @@ static void test_op_exa1_should_not_increment_pc_if_key_with_the_value_of_vx_is_
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x000a;
+	a.registers[vx] = vx_value;
 	a.keypad[vx_value] = 0xff;
-	a.opcode = (vx << 8u) + 0xe09e;
+	a.opcode = (vx << 8u) + 0xe0a1;
 	a.pc = 0x0000;
 
 	op_exa1(&a);
@@ -687,8 +690,9 @@ static void test_op_exa1_should_increment_pc_if_key_with_the_value_of_vx_is_not_
 	Chip8 a;
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x000a;
+	a.registers[vx] = vx_value;
 	a.keypad[vx_value] = 0x00;
-	a.opcode = (vx << 8u) + 0xe09e;
+	a.opcode = (vx << 8u) + 0xe0a1;
 	a.pc = 0x0000;
 
 	op_exa1(&a);
@@ -701,7 +705,7 @@ static void test_op_fx07_should_set_vx_to_the_value_of_delay_timer() {
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf007;
 	a.delay_timer = 0x15;
 
 	op_fx07(&a);
@@ -716,7 +720,7 @@ static void test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed() {
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0010;
 	a->registers[vx] = vx_value;
-	a->opcode = (vx << 8u);
+	a->opcode = (vx << 8u) + 0xf00a;
 	a->keypad[i] = 1;
 
 	op_fx0a(a);
@@ -729,7 +733,7 @@ static void test_op_fx0a_should_set_vx_to_the_value_of_the_key_pressed() {
 static void test_op_fx0a_should_increment_pc_if_no_key_is_pressed() {
 	Chip8* a = create();
 	uint8_t vx = 0x02;
-	a->opcode = (vx << 8u);
+	a->opcode = (vx << 8u) + 0xf00a;
 	a->pc = 0x0020;
 
 	op_fx0a(a);
@@ -744,7 +748,7 @@ static void test_op_fx15_should_set_delay_timer_to_the_value_of_vx() {
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf015;
 	a.delay_timer = 0x15;
 
 	op_fx15(&a);
@@ -757,7 +761,7 @@ static void test_op_fx18_should_set_sound_timer_to_the_value_of_vx() {
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0010;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf018;
 	a.sound_timer = 0x15;
 
 	op_fx18(&a);
@@ -770,7 +774,7 @@ static void test_op_fx1e_should_increment_index_by_the_value_of_vx() {
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0004;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf01e;
 	a.index = 0x0008;
 
 	op_fx1e(&a);
@@ -783,7 +787,7 @@ static void test_op_fx29_should_set_index_to_the_location_for_the_hexadecimal_sp
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 0x0004;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf029;
 	a.index = 0x0000;
 
 	op_fx29(&a);
@@ -796,7 +800,7 @@ static void test_op_fx33_should_store_bcd_representation_of_vx_in_memory_locatio
 	uint8_t vx = 0x02;
 	uint16_t vx_value = 123;
 	a.registers[vx] = vx_value;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf033;
 	a.index = 0x0005;
 
 	op_fx33(&a);
@@ -809,7 +813,7 @@ static void test_op_fx33_should_store_bcd_representation_of_vx_in_memory_locatio
 static void test_op_fx55_should_store_registers_v0_through_vx_in_memory_starting_at_location_i() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf055;
 	a.registers[0x00] = 0x00;
 	a.registers[0x01] = 0x01;
 	a.registers[0x02] = 0x02;
@@ -825,7 +829,7 @@ static void test_op_fx55_should_store_registers_v0_through_vx_in_memory_starting
 static void test_op_fx65_should_read_registers_v0_through_vx_from_memory_starting_at_location_i() {
 	Chip8 a;
 	uint8_t vx = 0x02;
-	a.opcode = (vx << 8u);
+	a.opcode = (vx << 8u) + 0xf065;
 	a.memory[a.index] = 0x00;
 	a.memory[a.index + 1] = 0x01;
 	a.memory[a.index + 2] = 0x02;
