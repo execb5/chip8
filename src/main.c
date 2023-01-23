@@ -43,5 +43,8 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	destroy(chip);
+	platform_destroy();
+
 	return 0;
 }
