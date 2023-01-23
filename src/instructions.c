@@ -190,14 +190,14 @@ void op_dxyn(Chip8* chip) {
 
 		for (int column = 0; column < 8; column++) {
 			uint8_t sprite_pixel = sprite_byte & (0x80u >> column);
-			uint8_t* screen_pixel = &chip->video[(y_start + row) * CHIP8_SCREEN_WIDTH + (x_start + column)];
+			uint32_t* screen_pixel = &chip->video[(y_start + row) * CHIP8_SCREEN_WIDTH + (x_start + column)];
 
 			if (sprite_pixel) {
-				if (*screen_pixel == 0xff) {
+				if (*screen_pixel == 0xffffffff) {
 					chip->registers[0xf] = 0x01;
 				}
 
-				*screen_pixel ^= 0xff;
+				*screen_pixel ^= 0xffffffff;
 			}
 		}
 	}

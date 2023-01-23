@@ -22,7 +22,7 @@ typedef struct Chip8 {
 	uint8_t delay_timer;
 	uint8_t sound_timer;
 	uint8_t keypad[CHIP8_KEYPAD_SIZE];
-	uint8_t video[CHIP8_PIXEL_COUNT];
+	uint32_t video[CHIP8_PIXEL_COUNT];
 	uint16_t opcode;
 } Chip8;
 

@@ -14,7 +14,7 @@ void platform_destroy(void) {
 	SDL_Quit();
 }
 
-void platform_update(void* buffer, int pitch) {
+void platform_update(uint32_t* buffer, int pitch) {
 	SDL_UpdateTexture(texture, NULL, buffer, pitch);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
