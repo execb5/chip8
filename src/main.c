@@ -1,55 +1,47 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "../include/instructions.h"
+#include "../include/platform.h"
 
-#define NUMBER_OF_ARGUMENTS 2
+#define NUMBER_OF_ARGUMENTS 4
+#define TITLE "My Cute Chip8 Emulator"
 
 int main(int argc, char** argv) {
-	if (argc < NUMBER_OF_ARGUMENTS + 1) {
+	if (argc != NUMBER_OF_ARGUMENTS) {
 		printf("Wrong number of arguments.\n");
 		printf("Expected %d, but got %d\n", NUMBER_OF_ARGUMENTS, argc - 1);
+		printf("Usage: %s <scale> <delay> <rom>\n", argv[0]);
 		return 1;
 	}
-	Chip8* a = create();
-	load_rom(a, argv[1]);
-	dump_memory_to_file(a, argv[2]);
-	op_00e0(a);
-	op_00ee(a);
-	op_1nnn(a);
-	op_2nnn(a);
-	op_3xkk(a);
-	op_4xkk(a);
-	op_5xy0(a);
-	op_6xkk(a);
-	op_7xkk(a);
-	op_8xy0(a);
-	op_8xy1(a);
-	op_8xy2(a);
-	op_8xy3(a);
-	op_8xy4(a);
-	op_8xy5(a);
-	op_8xy6(a);
-	op_8xy7(a);
-	op_8xye(a);
-	op_9xy0(a);
-	op_annn(a);
-	op_bnnn(a);
-	op_cxkk(a, generate_random_byte);
-	op_dxyn(a);
-	op_ex9e(a);
-	op_exa1(a);
-	op_fx07(a);
-	op_fx0a(a);
-	op_fx15(a);
-	op_fx18(a);
-	op_fx1e(a);
-	op_fx29(a);
-	op_fx33(a);
-	op_fx55(a);
-	op_fx65(a);
-	cycle(a);
-	cycle(a);
-	cycle(a);
-	cycle(a);
-	destroy(a);
+
+
+	int video_scale = atoi(argv[1]);
+	int cycle_delay = atoi(argv[2]);
+	char* rom_file = argv[3];
+
+	platform_create(TITLE, CHIP8_SCREEN_WIDTH * video_scale, CHIP8_SCREEN_HEIGHT * video_scale, CHIP8_SCREEN_WIDTH, CHIP8_SCREEN_HEIGHT);
+
+	Chip8* chip = create();
+	load_rom(chip, rom_file);
+
+	int video_pitch = sizeof(chip->video[0]) * CHIP8_SCREEN_WIDTH;
+
+	clock_t last_cycle_time = clock();
+	int quit = 0;
+
+	while(!quit) {
+		quit = platform_process_input(chip->keypad);
+
+		clock_t current_time = clock();
+		int dt = (current_time - last_cycle_time) * 1000 / CLOCKS_PER_SEC;
+
+		if (dt > cycle_delay) {
+			last_cycle_time = current_time;
+			cycle(chip);
+			platform_update(chip->video, video_pitch);
+		}
+	}
+
 	return 0;
 }
