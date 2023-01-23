@@ -29,6 +29,7 @@ typedef struct Chip8 {
 Chip8* create(void);
 void load_rom(Chip8* chip, char* rom_name);
 void dump_memory_to_file(Chip8* chip, char* memory_file_name);
+void cycle(Chip8* chip);
 void destroy(Chip8* chip);
 uint8_t generate_random_byte(void);
 
