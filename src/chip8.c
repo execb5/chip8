@@ -118,6 +118,8 @@ Chip8* create(void) {
 
 	memcpy(&a->memory[CHIP8_FONT_SET_START_ADDRESS], font_set, font_set_size);
 
+	a->pc = start_address;
+
 	return a;
 }
 
