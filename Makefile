@@ -46,3 +46,4 @@ clean:
 	rm -f $(ODIR)/*.o
 	rm -f main
 	rm -f test
+	rm -f *.hex
