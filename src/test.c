@@ -20,7 +20,7 @@ static uint8_t my_cute_rand(void) {
 
 static void test_op_00e0_should_fill_memory_with_zeroes() {
 	Chip8 a;
-	memset(a.video, 0x01, CHIP8_PIXEL_COUNT);
+	memset(a.video, 1, sizeof(a.video));
 
 	op_00e0(&a);
 
@@ -614,7 +614,7 @@ static void test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy() {
 
 	for (uint8_t row = 0; row < n; ++row) {
 		for (int column = 0; column < 8; ++column) {
-			assert_int_equal(a.video[(vy_value + row) * CHIP8_SCREEN_WIDTH + (vx_value + column)], 0xff);
+			assert_int_equal(a.video[(vy_value + row) * CHIP8_SCREEN_WIDTH + (vx_value + column)], 0xffffffff);
 		}
 	}
 }

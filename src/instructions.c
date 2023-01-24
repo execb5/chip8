@@ -2,7 +2,7 @@
 #include "../include/instructions.h"
 
 void op_00e0(Chip8* chip) {
-	memset(chip->video, 0, CHIP8_PIXEL_COUNT);
+	memset(chip->video, 0, sizeof(chip->video));
 }
 
 void op_00ee(Chip8* chip) {
@@ -188,7 +188,7 @@ void op_dxyn(Chip8* chip) {
 	for (uint8_t row = 0; row < n; row++) {
 		uint8_t sprite_byte = chip->memory[chip->index + row];
 
-		for (int column = 0; column < 8; column++) {
+		for (uint8_t column = 0; column < 8; column++) {
 			uint8_t sprite_pixel = sprite_byte & (0x80u >> column);
 			uint32_t* screen_pixel = &chip->video[(y_start + row) * CHIP8_SCREEN_WIDTH + (x_start + column)];
 
