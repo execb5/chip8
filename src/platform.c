@@ -1,24 +1,28 @@
 #include "../include/platform.h"
 
+SDL_Window* platform_window = NULL;
+SDL_Renderer* platform_renderer = NULL;
+SDL_Texture* platform_texture = NULL;
+
 void platform_create(char* title, int window_width, int window_height, int texture_width, int texture_height) {
 	SDL_Init(SDL_INIT_VIDEO);
-	window = SDL_CreateWindow(title, 0, 0, window_width, window_height, SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, texture_width,texture_height);
+	platform_window = SDL_CreateWindow(title, 0, 0, window_width, window_height, SDL_WINDOW_SHOWN);
+	platform_renderer = SDL_CreateRenderer(platform_window, -1, SDL_RENDERER_ACCELERATED);
+	platform_texture = SDL_CreateTexture(platform_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, texture_width, texture_height);
 }
 
 void platform_destroy(void) {
-	SDL_DestroyTexture(texture);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyTexture(platform_texture);
+	SDL_DestroyRenderer(platform_renderer);
+	SDL_DestroyWindow(platform_window);
 	SDL_Quit();
 }
 
 void platform_update(uint32_t* buffer, int pitch) {
-	SDL_UpdateTexture(texture, NULL, buffer, pitch);
-	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
-	SDL_RenderPresent(renderer);
+	SDL_UpdateTexture(platform_texture, NULL, buffer, pitch);
+	SDL_RenderClear(platform_renderer);
+	SDL_RenderCopy(platform_renderer, platform_texture, NULL, NULL);
+	SDL_RenderPresent(platform_renderer);
 }
 
 int platform_process_input(uint8_t* keypad) {

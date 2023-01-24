@@ -3,8 +3,8 @@ SDIR = ./src
 ODIR = ./obj
 
 CC = gcc
-CFLAGS = -Wall -g -I$(IDIR) -I/opt/homebrew/include/SDL2 -D_THREAD_SAFE
-LIB_FLAGS = -L/opt/homebrew/lib -lSDL2
+CFLAGS = -Wall -g -I$(IDIR) $(shell sdl2-config --cflags)
+LIB_FLAGS = $(shell sdl2-config --libs)
 TEST_FLAGS = -lcmocka
 
 _DEPS = chip8.h instructions.h platform.h
