@@ -32,7 +32,7 @@ main: $(OBJ) $(MAIN)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIB_FLAGS)
 
 test: $(OBJ) $(TEST)
-	$(CC) -o $@ $^ $(CFLAGS) $(TEST_FLAGS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIB_FLAGS) $(TEST_FLAGS)
 
 .PHONY: clean run run_test
 
