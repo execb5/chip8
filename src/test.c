@@ -595,7 +595,7 @@ static void test_op_dxyn_draws_sprite_in_position_defined_by_vx_and_vy() {
 	a.index = 0x00ff;
 	uint8_t n = 0x08;
 
-	memset(a.video, 0x00, CHIP8_PIXEL_COUNT);
+	memset(a.video, 0x00, sizeof(a.video));
 
 	// sprite is a square 8x8
 	for (uint8_t row = 0x00; row < n; ++row) {
@@ -624,7 +624,7 @@ static void test_op_dxyn_sets_vf_to_1_if_there_is_sprite_collision() {
 	a.index = 0x00ff;
 	uint8_t n = 0x08;
 
-	memset(a.video, 0xff, CHIP8_PIXEL_COUNT);
+	memset(a.video, 0xff, sizeof(a.video));
 
 	// sprite is a square 8x8
 	for (uint8_t row = 0x00; row < n; ++row) {
@@ -830,10 +830,10 @@ static void test_op_fx65_should_read_registers_v0_through_vx_from_memory_startin
 	Chip8 a;
 	uint8_t vx = 0x02;
 	a.opcode = (vx << 8u) + 0xf065;
+	a.index = 0x0005;
 	a.memory[a.index] = 0x00;
 	a.memory[a.index + 1] = 0x01;
 	a.memory[a.index + 2] = 0x02;
-	a.index = 0x0005;
 
 	op_fx65(&a);
 
