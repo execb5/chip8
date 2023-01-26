@@ -45,82 +45,82 @@ int platform_process_input(uint8_t* keypad) {
 						break;
 
 					case SDLK_x: {
-						keypad[0] = 1;
+						keypad[0x0] = 0xff;
 					}
 						break;
 
 					case SDLK_1: {
-						keypad[1] = 1;
+						keypad[0x1] = 0xff;
 					}
 						break;
 
 					case SDLK_2: {
-						keypad[2] = 1;
+						keypad[0x2] = 0xff;
 					}
 						break;
 
 					case SDLK_3: {
-						keypad[3] = 1;
+						keypad[0x3] = 0xff;
 					}
 						break;
 
 					case SDLK_q: {
-						keypad[4] = 1;
+						keypad[0x4] = 0xff;
 					}
 						break;
 
 					case SDLK_w: {
-						keypad[5] = 1;
+						keypad[0x5] = 0xff;
 					}
 						break;
 
 					case SDLK_e: {
-						keypad[6] = 1;
+						keypad[0x6] = 0xff;
 					}
 						break;
 
 					case SDLK_a: {
-						keypad[7] = 1;
+						keypad[0x7] = 0xff;
 					}
 						break;
 
 					case SDLK_s: {
-						keypad[8] = 1;
+						keypad[0x8] = 0xff;
 					}
 						break;
 
 					case SDLK_d: {
-						keypad[9] = 1;
+						keypad[0x9] = 0xff;
 					}
 						break;
 
 					case SDLK_z: {
-						keypad[0xA] = 1;
+						keypad[0xa] = 0xff;
 					}
 						break;
 
 					case SDLK_c: {
-						keypad[0xB] = 1;
+						keypad[0xb] = 0xff;
 					}
 						break;
 
 					case SDLK_4: {
-						keypad[0xC] = 1;
+						keypad[0xc] = 0xff;
 					}
 						break;
 
 					case SDLK_r: {
-						keypad[0xD] = 1;
+						keypad[0xd] = 0xff;
 					}
 						break;
 
 					case SDLK_f: {
-						keypad[0xE] = 1;
+						keypad[0xe] = 0xff;
 					}
 						break;
 
 					case SDLK_v: {
-						keypad[0xF] = 1;
+						keypad[0xf] = 0xff;
 					}
 						break;
 				}
@@ -130,82 +130,82 @@ int platform_process_input(uint8_t* keypad) {
 			case SDL_KEYUP: {
 				switch (event.key.keysym.sym) {
 					case SDLK_x: {
-						keypad[0] = 0;
+						keypad[0x0] = 0x00;
 					}
 						break;
 
 					case SDLK_1: {
-						keypad[1] = 0;
+						keypad[0x1] = 0x00;
 					}
 						break;
 
 					case SDLK_2: {
-						keypad[2] = 0;
+						keypad[0x2] = 0x00;
 					}
 						break;
 
 					case SDLK_3: {
-						keypad[3] = 0;
+						keypad[0x3] = 0x00;
 					}
 						break;
 
 					case SDLK_q: {
-						keypad[4] = 0;
+						keypad[0x4] = 0x00;
 					}
 						break;
 
 					case SDLK_w: {
-						keypad[5] = 0;
+						keypad[0x5] = 0x00;
 					}
 						break;
 
 					case SDLK_e: {
-						keypad[6] = 0;
+						keypad[0x6] = 0x00;
 					}
 						break;
 
 					case SDLK_a: {
-						keypad[7] = 0;
+						keypad[0x7] = 0x00;
 					}
 						break;
 
 					case SDLK_s: {
-						keypad[8] = 0;
+						keypad[0x8] = 0x00;
 					}
 						break;
 
 					case SDLK_d: {
-						keypad[9] = 0;
+						keypad[0x9] = 0x00;
 					}
 						break;
 
 					case SDLK_z: {
-						keypad[0xA] = 0;
+						keypad[0xa] = 0x00;
 					}
 						break;
 
 					case SDLK_c: {
-						keypad[0xB] = 0;
+						keypad[0xb] = 0x00;
 					}
 						break;
 
 					case SDLK_4: {
-						keypad[0xC] = 0;
+						keypad[0xc] = 0x00;
 					}
 						break;
 
 					case SDLK_r: {
-						keypad[0xD] = 0;
+						keypad[0xd] = 0x00;
 					}
 						break;
 
 					case SDLK_f: {
-						keypad[0xE] = 0;
+						keypad[0xe] = 0x00;
 					}
 						break;
 
 					case SDLK_v: {
-						keypad[0xF] = 0;
+						keypad[0xf] = 0x00;
 					}
 						break;
 				}
