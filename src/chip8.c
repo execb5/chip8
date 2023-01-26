@@ -109,6 +109,7 @@ static void initialize(void) {
 	table_f[0x55] = &op_fx55;
 	table_f[0x65] = &op_fx65;
 }
+
 Chip8* create(void) {
 	Chip8* a = calloc(1, sizeof(Chip8));
 
