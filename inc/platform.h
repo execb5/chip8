@@ -10,7 +10,7 @@ extern SDL_Texture* platform_texture;
 
 void platform_create(char* title, int window_width, int window_height, int texture_width, int texture_height);
 void platform_destroy(void);
-void platform_update(uint32_t* buffer, int pitch);
+void platform_update(uint32_t* video, int pitch);
 int platform_process_input(uint8_t* keypad);
 
 #endif /* PLATFORM_H */

@@ -18,8 +18,8 @@ void platform_destroy(void) {
 	SDL_Quit();
 }
 
-void platform_update(uint32_t* buffer, int pitch) {
-	SDL_UpdateTexture(platform_texture, NULL, buffer, pitch);
+void platform_update(uint32_t* video, int pitch) {
+	SDL_UpdateTexture(platform_texture, NULL, video, pitch);
 	SDL_RenderClear(platform_renderer);
 	SDL_RenderCopy(platform_renderer, platform_texture, NULL, NULL);
 	SDL_RenderPresent(platform_renderer);
