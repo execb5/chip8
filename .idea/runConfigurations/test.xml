@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="test" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="chip8" TARGET_NAME="test" CONFIG_NAME="test" version="1" RUN_PATH="$PROJECT_DIR$/test">
-    <method v="2" />
-  </configuration>
-</component>
