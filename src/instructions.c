@@ -1,5 +1,5 @@
 #include <string.h>
-#include "../include/instructions.h"
+#include "../inc/instructions.h"
 
 void op_00e0(Chip8* chip) {
 	memset(chip->video, 0, sizeof(chip->video));

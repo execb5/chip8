@@ -1,4 +1,4 @@
-#include "../include/platform.h"
+#include "../inc/platform.h"
 
 SDL_Window* platform_window = NULL;
 SDL_Renderer* platform_renderer = NULL;

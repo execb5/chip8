@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../include/instructions.h"
-#include "../include/platform.h"
+#include "../inc/instructions.h"
+#include "../inc/platform.h"
 
 #define NUMBER_OF_ARGUMENTS 4
 #define TITLE "My Cute Chip8 Emulator"
