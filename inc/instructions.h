@@ -428,7 +428,8 @@ void op_fx33(Chip8* chip);
  *
  * @verbatim LD [I], Vx @endverbatim
  *
- * The interpreter copies the values of registers V0 through Vx into memory, starting at the address in I.
+ * The interpreter copies the values of registers V0 through Vx into memory,
+ * starting at the address in I.
  *
  * @param chip State of the chip8 CPU.
  */
@@ -440,7 +441,8 @@ void op_fx55(Chip8* chip);
  *
  * @verbatim LD Vx, [I] @endverbatim
  *
- * The interpreter reads values from memory starting at location I into registers V0 through Vx.
+ * The interpreter reads values from memory starting at location I into
+ * registers V0 through Vx.
  *
  * @param chip State of the chip8 CPU.
  */
